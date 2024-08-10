@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Journal</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00FF00;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            max-width: 100%;
+            max-height: 100%;
+            z-index:-100;
+            filter: opacity(30%);
+        }
+        #opening-animation, #journal {
+            max-width: 800px;
+            width: 100%;
+            line-height: 1.2;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        #opening-animation {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            line-height: 1.2; /* Adjust line spacing for opening animation */
+        }
+
+        #journal {
+            position: absolute;
+            top: 20px; /* Position near the top */
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            line-height: 1.2; /* Adjust line spacing for opening animation */
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            background-color: #00FF00;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+            50%, 100% {
+                opacity: 0;
+            }
+        }
+
+        .nav {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #00FF00;
+        }
+
+        .menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown a:hover {
+            background-color: #575757;
+            color: #00FF00;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <video id="background-video" autoplay loop muted>
+        <source src="videos/Nebula_1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      
+    <div class="nav">
+        <div class="menu">
+            ☰ Menu
+            <div class="dropdown">
+                <a href="archive.html">Archive</a>
+                <a href="motion-picture.html">Motion Picture</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="opening-animation"></div>
+    <div id="journal"></div>
+
+    <script>
+        const openingText = "August 4, 2024\nPlanet Earth\nMystiQuill: Etheral Expressions"; 
+        const journalText = "Mystiquill Entry #1.\n\nEvery step made\nMore material becomes the matter\nRelease the me\nLet go of the I\nPlayinbetween those lines\nA great observer\nDancing with space and time\n\nOne of a kind\nWhat kind may that be?\nSurely nothing you've seen\n\nFor the scene you're directing\nIs still erecting\nThe cast\nYou're still selecting\n\nWe've been readying you\nUnlocking\nUnblocking\nActivating\nRevolting\n\nFloat now\nBuoyant truth\nA strong regrowth\nLike the fall of a tooth\n\nQuite the bite you have now\nBefore, you were scared to chew\nNow you wear those colors proudly\nWhether it be red or blue\n\nHere's a clue\nIt's you\nAlready and always\nEmancipate yourself from the influence of angles\nLearn to appreciate their perspectives as an expansive tool\nRather than be bound by their regid rules\n\nThis is a schol\nAnd master is among you\nThough the training is everlasting\nA balancing beam\nForever glimmering with give and pull\nEternal negotiation\nSacred Bull\n\nIron fist\nEtheral punch\nDon't know quite what you'll do\nBut I got a hunch\nYou eat this suffrage for lunch\nAlchemize it\nConcentrate it into a bunch";
+        let index = 0;
+        let isJournalVisible = false;
+
+        function typeWriter() {
+            const targetElement = document.getElementById(isJournalVisible ? "journal" : "opening-animation");
+            const currentText = isJournalVisible ? journalText : openingText;
+
+            if (index < currentText.length) {
+                targetElement.innerHTML = currentText.substring(0, index + 1) + '<span class="cursor">&nbsp;</span>';
+                index++;
+                setTimeout(typeWriter, 50); // Adjust typing speed here
+            } else if (!isJournalVisible) {
+                setTimeout(() => {
+                    document.getElementById("opening-animation").style.display = 'none';
+                    document.getElementById("journal").style.display = 'block';
+                    isJournalVisible = true;
+                    index = 0;
+                    typeWriter();
+                }, 3000); // Wait 3 seconds before showing the journal
+            } else {
+                targetElement.innerHTML = currentText + '<span class="cursor">&nbsp;</span>';
+            }
+        }
+
+        window.onload = () => {
+            typeWriter();
+        };
+    </script>
+</body>
+<<<<<<< HEAD
+</html>
+=======
+</html>
+>>>>>>> 9788c9e15b9c1db11d8eb2768371056ead4bc7eb
