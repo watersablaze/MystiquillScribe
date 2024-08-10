@@ -31,6 +31,55 @@
             object-fit: cover;
         }
 
+        .header {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            text-align: left;
+            padding: 10px 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #00FF00;
+            text-transform: uppercase;
+            font-size: 24px;
+            z-index: 10;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 18px;
+            animation: glitch 2.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #b072ae, 0 0 20px #b072ae, 0 0 30px #b072ae, 0 0 40px #b072ae;
+            }
+            to {
+                text-shadow: 0 0 5px #b072ae, 0 0 10px #b072ae, 0 0 15px #b072ae, 0 0 20px #b072ae;
+            }
+        }
+
+        @keyframes glitch {
+            0%, 80% {
+                text-shadow: none;
+            }
+            81%, 82% {
+                text-shadow: 2px 2px #00FF00, -2px -2px #00FF00;
+            }
+            83%, 84% {
+                text-shadow: -2px -2px #bd75bb, 2px 2px #bd75bb;
+            }
+            85%, 100% {
+                text-shadow: none;
+            }
+        }
+
         #opening-animation, #journal {
             max-width: 800px;
             width: 100%;
@@ -50,7 +99,7 @@
 
         #journal {
             position: absolute;
-            top: 20px; /* Position near the top */
+            top: 170px; /* Position near the top */
             left: 50%;
             transform: translateX(-50%);
             display: none;
@@ -75,8 +124,8 @@
         }
 
         .nav {
-            position: fixed;
-            top: 10px;
+            position: absolute;
+            top: 50px;
             right: 20px;
             font-size: 20px;
             cursor: pointer;
@@ -120,6 +169,11 @@
         Your browser does not support the video tag.
       </video>
       
+      <div class="header">
+        <h1>Mystiquill</h1>
+        <h2>A Scribe's Odyssey</h2>
+    </div>
+
     <div class="nav">
         <div class="menu">
             ☰ Menu
