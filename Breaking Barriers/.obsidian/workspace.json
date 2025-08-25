@@ -1,0 +1,162 @@
+{
+  "main": {
+    "id": "4bf541677c8dcf58",
+    "type": "split",
+    "children": [
+      {
+        "id": "6c079efa911c7f23",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fd92548e709361c3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "BREAKING BARRIERS/Breaking Barriers.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "defe352162bee882",
+    "type": "split",
+    "children": [
+      {
+        "id": "fec998d184cd663c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "dc0fb45f7211f408",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "9ec4ba814d74847b",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "caa48544ee60d1f2",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "3a1606c9e84e5921",
+    "type": "split",
+    "children": [
+      {
+        "id": "f28772cbcc200358",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f87598666ce35dc3",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "BREAKING BARRIERS/Breaking Barriers.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "5d39a2828162fb57",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "BREAKING BARRIERS/Breaking Barriers.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "4a6a702985d6cff4",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "61ee2b9a41397e42",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "BREAKING BARRIERS/Breaking Barriers.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "audio-recorder:Start/stop recording": false,
+      "markdown-importer:Open format converter": false,
+      "publish:Publish changes...": false
+    }
+  },
+  "active": "fd92548e709361c3",
+  "lastOpenFiles": [
+    "Program Alpha/Processing Your Delussions.md",
+    "BREAKING BARRIERS/Breaking Barriers.md",
+    "Program Alpha",
+    "Untitled.md",
+    "Purpose.md",
+    "BREAKING BARRIERS",
+    "create a link.md"
+  ]
+}
