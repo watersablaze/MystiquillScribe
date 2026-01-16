@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 import { mystiquillPrisma } from '@/lib/db/mystiquill';
 
 const PAYSTACK_SECRET = process.env.PAYSTACK_SECRET_KEY!;
@@ -11,14 +10,19 @@ export async function GET(req: Request) {
   const entrySlug = searchParams.get('entry');
 
   if (!reference || !entrySlug) {
-    return NextResponse.json({ error: 'Missing parameters' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Missing parameters' },
+      { status: 400 }
+    );
   }
 
   // 1) Verify with Paystack
   const res = await fetch(
     `https://api.paystack.co/transaction/verify/${reference}`,
     {
-      headers: { Authorization: `Bearer ${PAYSTACK_SECRET}` },
+      headers: {
+        Authorization: `Bearer ${PAYSTACK_SECRET}`,
+      },
       cache: 'no-store',
     }
   );
@@ -26,19 +30,18 @@ export async function GET(req: Request) {
   const data = await res.json();
 
   if (!data?.status || data?.data?.status !== 'success') {
-    return NextResponse.json({ error: 'Payment not verified' }, { status: 402 });
+    return NextResponse.json(
+      { error: 'Payment not verified' },
+      { status: 402 }
+    );
   }
-
-  cookies().set("mq_odyssey_email", data.data.customer.email, {
-  httpOnly: true,
-  sameSite: "lax",
-  secure: process.env.NODE_ENV === "production",
-  path: "/",
-});
 
   const email: string | undefined = data?.data?.customer?.email;
   if (!email) {
-    return NextResponse.json({ error: 'Missing customer email' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Missing customer email' },
+      { status: 500 }
+    );
   }
 
   // 2) Persist access (per-email)
@@ -59,8 +62,10 @@ export async function GET(req: Request) {
     },
   });
 
-  // 3) Set cookie so slug page can check access for THIS viewer
-  const response = NextResponse.redirect(new URL(`/odyssey/${entrySlug}`, req.url));
+  // 3) Redirect + set cookie on the RESPONSE (correct)
+  const response = NextResponse.redirect(
+    new URL(`/odyssey/${entrySlug}`, req.url)
+  );
 
   response.cookies.set('mq_odyssey_email', email, {
     httpOnly: true,

@@ -3,17 +3,16 @@
 import { useState } from 'react';
 import styles from './RevisionViewer.module.css';
 
-type Revision = {
+type EntryRevision = {
   id: string;
   title: string;
-  excerpt: string | null;
   createdAt: string;
 };
 
 export default function RevisionViewer({
   revisions,
 }: {
-  revisions: Revision[];
+  revisions: EntryRevision[];
 }) {
   const [open, setOpen] = useState(false);
 
@@ -28,12 +27,14 @@ export default function RevisionViewer({
     >
       <button
         className={styles.toggle}
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpen((v) => !v)}
+        type="button"
       >
         <span>
           Revisions ({revisions.length})
         </span>
-        <span className={styles.chevron}>
+
+        <span className={styles.chevron} aria-hidden>
           {open ? '▾' : '▸'}
         </span>
       </button>
@@ -46,6 +47,7 @@ export default function RevisionViewer({
                 <span className={styles.index}>
                   #{revisions.length - i}
                 </span>
+
                 <span className={styles.date}>
                   {new Date(rev.createdAt).toLocaleString()}
                 </span>
@@ -54,12 +56,6 @@ export default function RevisionViewer({
               <strong className={styles.title}>
                 {rev.title}
               </strong>
-
-              {rev.excerpt && (
-                <p className={styles.excerpt}>
-                  {rev.excerpt}
-                </p>
-              )}
             </div>
           ))}
         </div>

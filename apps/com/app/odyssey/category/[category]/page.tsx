@@ -1,28 +1,33 @@
-import Link from 'next/link';
-import { mystiquillPrisma } from '@/lib/db/mystiquill';
-import styles from '../../odyssey.module.css';
+import Link from "next/link";
+import { mystiquillPrisma } from "@/lib/db/mystiquill";
+import styles from "../../odyssey.module.css";
 
-type Params = { category: string };
+export const dynamic = "force-dynamic";
+
+type PageProps = {
+  params: Promise<{
+    category: string;
+  }>;
+};
 
 export default async function OdysseyCategoryPage({
   params,
-}: {
-  params: Params;
-}) {
-  const category = decodeURIComponent(params.category);
+}: PageProps) {
+  const { category } = await params;
+  const decodedCategory = decodeURIComponent(category);
 
   const entries = await mystiquillPrisma.odysseyEntry.findMany({
     where: {
       published: true,
-      category,
+      category: decodedCategory,
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 
   return (
     <main className={styles.container}>
       <header className={styles.header}>
-        <h1 className={styles.title}>{category}</h1>
+        <h1 className={styles.title}>{decodedCategory}</h1>
         <p className={styles.subtitle}>
           Entries gathered under this facet of the work.
         </p>

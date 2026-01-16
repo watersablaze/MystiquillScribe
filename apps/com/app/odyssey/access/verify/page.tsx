@@ -1,28 +1,28 @@
-// apps/com/app/odyssey/access/verify/page.tsx
+import { redirect } from "next/navigation";
+import styles from "./verify.module.css";
 
-import { redirect } from 'next/navigation';
-import styles from './verify.module.css';
+export const dynamic = "force-dynamic";
 
-export const dynamic = 'force-dynamic';
+type PageProps = {
+  searchParams: Promise<{
+    reference?: string;
+    entry?: string;
+  }>;
+};
 
 export default async function VerifyAccessPage({
   searchParams,
-}: {
-  searchParams: {
-    reference?: string;
-    entry?: string;
-  };
-}) {
-  const { reference, entry } = searchParams;
+}: PageProps) {
+  const { reference, entry } = await searchParams;
 
   if (!reference || !entry) {
-    redirect('/odyssey');
+    redirect("/odyssey");
   }
 
   // Call internal verification endpoint
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/paystack/verify?reference=${reference}&entry=${entry}`,
-    { cache: 'no-store' }
+    { cache: "no-store" }
   );
 
   if (!res.ok) {

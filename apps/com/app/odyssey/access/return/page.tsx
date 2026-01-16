@@ -2,12 +2,17 @@ import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
-export default function OdysseyAccessReturnPage({
+type PageProps = {
+  searchParams: Promise<{
+    reference?: string;
+    entry?: string;
+  }>;
+};
+
+export default async function OdysseyAccessReturnPage({
   searchParams,
-}: {
-  searchParams: { reference?: string; entry?: string };
-}) {
-  const { reference, entry } = searchParams;
+}: PageProps) {
+  const { reference, entry } = await searchParams;
 
   if (!reference || !entry) {
     redirect("/odyssey");

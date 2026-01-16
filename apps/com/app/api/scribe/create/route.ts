@@ -10,18 +10,22 @@ export async function POST(req: Request) {
       body.slug?.trim() ||
       slugify(body.title || 'untitled', { lower: true, strict: true });
 
-    const tags: string[] =
+    // Normalize tags → comma-separated string (DB contract)
+    const tags =
       typeof body.tags === 'string'
-        ? body.tags.split(',').map((t: string) => t.trim())
-        : [];
+        ? body.tags
+            .split(',')
+            .map((t: string) => t.trim())
+            .filter(Boolean)
+            .join(',')
+        : '';
 
     const entry = await mystiquillPrisma.odysseyEntry.create({
       data: {
         title: body.title,
         slug,
-        excerpt: body.excerpt,
         content: body.content,
-        category: body.category,
+        category: body.category ?? null,
         tags,
         published: body.published ?? false,
       },
@@ -30,6 +34,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true, entry });
   } catch (err) {
     console.error(err);
-    return NextResponse.json({ ok: false, error: 'Failed to create entry' }, { status: 500 });
+    return NextResponse.json(
+      { ok: false, error: 'Failed to create entry' },
+      { status: 500 }
+    );
   }
 }

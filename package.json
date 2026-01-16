@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cd apps/com && next dev -p 3001",
-    "build": "cd apps/com && next build",
-    "start": "cd apps/com && next start -p 3001",
+    "dev": "pnpm -C apps/com run dev",
+    "build": "pnpm -C apps/com run build",
+    "start": "pnpm -C apps/com run start",
     "lint": "eslint .",
     "postinstall": "pnpm exec prisma generate"
   },

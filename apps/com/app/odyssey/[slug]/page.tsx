@@ -25,17 +25,17 @@ function escapeHtml(s: string) {
 function bulletsToHtml(input: string) {
   const lines = input
     .split("\n")
-    .map(l => l.trim())
+    .map((l) => l.trim())
     .filter(Boolean);
 
-  const bulletLines = lines.filter(l => l.startsWith("- "));
+  const bulletLines = lines.filter((l) => l.startsWith("- "));
   if (!bulletLines.length) {
     return `<p>${escapeHtml(input)}</p>`;
   }
 
   const items = bulletLines
-    .map(l => l.replace(/^-+\s*/, "").trim())
-    .map(t => `<li>${escapeHtml(t)}</li>`)
+    .map((l) => l.replace(/^-+\s*/, "").trim())
+    .map((t) => `<li>${escapeHtml(t)}</li>`)
     .join("");
 
   return `<ul>${items}</ul>`;
@@ -45,13 +45,17 @@ function bulletsToHtml(input: string) {
 Page
 ----------------------------------------- */
 
-export default async function OdysseyEntryPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+type PageProps = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
+
+export default async function OdysseyEntryPage({ params }: PageProps) {
+  const { slug } = await params;
+
   const entry = await mystiquillPrisma.odysseyEntry.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
   });
 
   if (!entry || !entry.published) return notFound();
@@ -82,10 +86,9 @@ export default async function OdysseyEntryPage({
 
   return (
     <main className={styles.page}>
-
       {/* ===============================
-      HEADER
-      =============================== */}
+         HEADER
+         =============================== */}
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <span className={styles.kicker}>A Scribe’s Odyssey</span>
@@ -94,12 +97,11 @@ export default async function OdysseyEntryPage({
       </header>
 
       {/* ===============================
-      GUIDED THRESHOLD
-      =============================== */}
+         GUIDED THRESHOLD
+         =============================== */}
       {!hasAccess && isGuided && (
         <section className={styles.guidedOuter}>
           <div className={styles.guidedGrid}>
-
             <div className={styles.guidedPrimary}>
               <p className={styles.guidedIntro}>
                 {entry.guidedIntro ??
@@ -111,11 +113,9 @@ export default async function OdysseyEntryPage({
 
             <div className={styles.guidedSecondary}>
               {entry.guidedTitle && (
-                <>
-                  <span className={styles.guidedTitle}>
-                    {entry.guidedTitle}
-                  </span>
-                </>
+                <span className={styles.guidedTitle}>
+                  {entry.guidedTitle}
+                </span>
               )}
 
               {guidedMetaHtml && (
@@ -137,21 +137,19 @@ export default async function OdysseyEntryPage({
               Access is offered in alignment — sustaining work held with care
               and accountability.
             </div>
-
           </div>
         </section>
       )}
 
       {/* ===============================
-      BODY
-      =============================== */}
+         BODY
+         =============================== */}
       {hasAccess && (
         <article className={styles.body}>
           <div dangerouslySetInnerHTML={{ __html: entry.content }} />
           {isPatron && <ContributePanel />}
         </article>
       )}
-
     </main>
   );
 }

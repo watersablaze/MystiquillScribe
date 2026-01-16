@@ -1,7 +1,8 @@
-export { axptPrisma } from './axpt';
 export { mystiquillPrisma } from './mystiquill';
 
 /**
  * ❗ DO NOT export a default prisma client.
- * Every domain must explicitly choose its database.
+ * Each domain must explicitly choose its database.
+ *
+ * AXPT has its own repository and DB boundary.
  */

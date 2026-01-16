@@ -1,30 +1,35 @@
 // apps/com/app/(scribe)/scribe/page.tsx
 
-import { mystiquillPrisma } from '@/lib/db/mystiquill';
-import Link from 'next/link';
-import styles from './scribeIndex.module.css';
+import { mystiquillPrisma } from "@/lib/db/mystiquill";
+import Link from "next/link";
+import styles from "./scribeIndex.module.css";
 
-type Filter = 'all' | 'draft' | 'sealed' | 'archived';
+export const dynamic = "force-dynamic";
 
-export default async function ScribeIndex({
-  searchParams,
-}: {
-  searchParams?: { filter?: Filter };
-}) {
-  const filter: Filter = searchParams?.filter ?? 'all';
+type Filter = "all" | "draft" | "sealed" | "archived";
+
+type PageProps = {
+  searchParams?: Promise<{
+    filter?: Filter;
+  }>;
+};
+
+export default async function ScribeIndex({ searchParams }: PageProps) {
+  const resolved = (await searchParams) ?? {};
+  const filter: Filter = resolved.filter ?? "all";
 
   const where =
-    filter === 'draft'
+    filter === "draft"
       ? { published: false, archived: false }
-      : filter === 'sealed'
+      : filter === "sealed"
       ? { published: true, archived: false }
-      : filter === 'archived'
+      : filter === "archived"
       ? { archived: true }
       : {};
 
-  const entries = await prisma.odysseyEntry.findMany({
+  const entries = await mystiquillPrisma.odysseyEntry.findMany({
     where,
-    orderBy: { updatedAt: 'desc' },
+    orderBy: { updatedAt: "desc" },
     select: {
       id: true,
       title: true,
@@ -51,11 +56,11 @@ export default async function ScribeIndex({
         </div>
 
         <nav className={styles.scribeFilters}>
-          {(['all', 'draft', 'sealed', 'archived'] as Filter[]).map((f) => (
+          {(["all", "draft", "sealed", "archived"] as Filter[]).map((f) => (
             <Link
               key={f}
               href={`/scribe?filter=${f}`}
-              className={filter === f ? styles.active : ''}
+              className={filter === f ? styles.active : ""}
             >
               {f}
             </Link>
@@ -91,20 +96,20 @@ export default async function ScribeIndex({
             {/* Status */}
             <div className={styles.ledgerStatus}>
               {entry.archived
-                ? 'Archived'
+                ? "Archived"
                 : entry.published
-                ? 'Sealed'
-                : 'Draft'}
+                ? "Sealed"
+                : "Draft"}
             </div>
 
             {/* Timeline */}
             <div className={styles.ledgerDate}>
               <span className={styles.origin}>
-                Created{' '}
+                Created{" "}
                 {new Date(entry.createdAt).toLocaleDateString()}
               </span>
               <span className={styles.updated}>
-                Updated{' '}
+                Updated{" "}
                 {new Date(entry.updatedAt).toLocaleDateString()}
               </span>
             </div>

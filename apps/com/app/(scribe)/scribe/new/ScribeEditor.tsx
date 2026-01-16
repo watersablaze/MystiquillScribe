@@ -339,9 +339,9 @@ export default function ScribeEditor({
           />
         </div>
 
-        {draft.published && (
-          <RevisionViewer revisions={revisions} slug={draft.slug} />
-        )}
+                {draft.published && (
+            <RevisionViewer revisions={revisions} />
+          )}
 
         <div className={styles.field}>
           <label className={styles.labelText}>Content</label>

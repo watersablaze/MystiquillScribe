@@ -18,7 +18,6 @@ export async function GET(req: Request) {
     select: {
       id: true,
       title: true,
-      excerpt: true,
       createdAt: true,
     },
   });

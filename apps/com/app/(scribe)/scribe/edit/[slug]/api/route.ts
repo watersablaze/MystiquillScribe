@@ -1,35 +1,79 @@
-import { mystiquillPrisma } from '@/lib/db/mystiquill';
-import { NextResponse } from 'next/server';
+import { mystiquillPrisma } from "@/lib/db/mystiquill";
+import { NextResponse } from "next/server";
 
-export async function GET(
-  _req: Request,
-  { params }: { params: { slug: string } }
-) {
+/**
+ * Helper to extract `[slug]` from:
+ * /scribe/edit/[slug]/api
+ */
+function extractSlug(request: Request): string | null {
+  const { pathname } = new URL(request.url);
+  const parts = pathname.split("/").filter(Boolean);
+
+  // expected: [..., "edit", "[slug]", "api"]
+  const apiIndex = parts.lastIndexOf("api");
+  if (apiIndex < 1) return null;
+
+  return parts[apiIndex - 1] ?? null;
+}
+
+export async function GET(request: Request) {
+  const slug = extractSlug(request);
+
+  if (!slug) {
+    return NextResponse.json(
+      { error: "Missing slug" },
+      { status: 400 }
+    );
+  }
+
   const entry = await mystiquillPrisma.odysseyEntry.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
   });
+
+  if (!entry) {
+    return NextResponse.json(
+      { error: "Entry not found" },
+      { status: 404 }
+    );
+  }
 
   return NextResponse.json({ entry });
 }
 
-export async function POST(
-  req: Request,
-  { params }: { params: { slug: string } }
-) {
-  const form = await req.formData();
+export async function POST(request: Request) {
+  const slugParam = extractSlug(request);
 
-  const title = (form.get('title') as string).trim();
-  const content = (form.get('content') as string).trim();
+  if (!slugParam) {
+    return NextResponse.json(
+      { error: "Missing slug" },
+      { status: 400 }
+    );
+  }
 
-  const slugRaw = (form.get('slug') as string | null) ?? '';
+  const form = await request.formData();
+
+  const title = (form.get("title") as string | null)?.trim() ?? "";
+  const content = (form.get("content") as string | null)?.trim() ?? "";
+
+  if (!title || !content) {
+    return NextResponse.json(
+      { error: "Title and content are required" },
+      { status: 400 }
+    );
+  }
+
+  const slugRaw = (form.get("slug") as string | null)?.trim() ?? "";
   const slug =
-    slugRaw.trim() ||
-    title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    slugRaw ||
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
 
-  const published = Boolean(form.get('published'));
+  const published = Boolean(form.get("published"));
 
   await mystiquillPrisma.odysseyEntry.update({
-    where: { slug: params.slug },
+    where: { slug: slugParam },
     data: {
       title,
       slug,

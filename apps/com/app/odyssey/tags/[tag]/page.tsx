@@ -1,28 +1,40 @@
-import Link from 'next/link';
-import { mystiquillPrisma } from '@/lib/db/mystiquill';
-import styles from '../../odyssey.module.css';
+// apps/com/app/odyssey/tags/[tag]/page.tsx
 
-type Params = { tag: string };
+import Link from "next/link";
+import { mystiquillPrisma } from "@/lib/db/mystiquill";
+import styles from "../../odyssey.module.css";
 
-export default async function OdysseyTagPage({
-  params,
-}: {
-  params: Params;
-}) {
-  const tag = decodeURIComponent(params.tag);
+export const dynamic = "force-dynamic";
 
-  const posts = await mystiquillPrisma.post.findMany({
+type PageProps = {
+  params: Promise<{
+    tag: string;
+  }>;
+};
+
+export default async function OdysseyTagPage({ params }: PageProps) {
+  const { tag } = await params;
+  const decodedTag = decodeURIComponent(tag);
+
+  const posts = await mystiquillPrisma.odysseyEntry.findMany({
     where: {
       published: true,
-      tags: { has: tag },
+      tags: {
+        contains: decodedTag, // tags stored as comma-separated string
+      },
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
+    select: {
+      slug: true,
+      title: true,
+      content: true,
+    },
   });
 
   return (
     <main className={styles.container}>
       <header className={styles.header}>
-        <h1 className={styles.title}>#{tag}</h1>
+        <h1 className={styles.title}>#{decodedTag}</h1>
         <p className={styles.subtitle}>
           Entries carrying this particular thread of the journey.
         </p>
@@ -36,8 +48,9 @@ export default async function OdysseyTagPage({
             className={styles.card}
           >
             <h2>{p.title}</h2>
+
             <p className={styles.excerpt}>
-              {p.excerpt ?? p.content.slice(0, 140) + '…'}
+              {p.content.slice(0, 140)}…
             </p>
           </Link>
         ))}
