@@ -67,6 +67,12 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
 
+  apps/com:
+    dependencies:
+      slugify:
+        specifier: ^1.6.6
+        version: 1.6.6
+
 packages:
 
   /@alloc/quick-lru@5.2.0:
@@ -1567,6 +1573,11 @@ packages:
       is-arrayish: 0.3.2
     dev: false
     optional: true
+
+  /slugify@1.6.6:
+    resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
+    engines: {node: '>=8.0.0'}
+    dev: false
 
   /source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
