@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { mystiquillPrisma } from '@/lib/db/mystiquill';
+import { getMystiquillPrisma } from '@/lib/db/mystiquill';
 
 export async function GET(req: Request) {
   try {

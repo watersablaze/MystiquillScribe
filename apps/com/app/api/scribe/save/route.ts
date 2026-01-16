@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { mystiquillPrisma } from '@/lib/db/mystiquill';
+import { getMystiquillPrisma } from '@/lib/db/mystiquill';
 
 function makeSlug(input: string): string {
   return input

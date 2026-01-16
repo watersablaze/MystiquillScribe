@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { mystiquillPrisma } from '@/lib/db/mystiquill';
+import { getMystiquillPrisma } from '@/lib/db/mystiquill';
 
 const PAYSTACK_SECRET = process.env.PAYSTACK_SECRET_KEY;
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;

@@ -1,4 +1,4 @@
-import { mystiquillPrisma } from '@/lib/db/mystiquill';
+import { getMystiquillPrisma } from '@/lib/db/mystiquill';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
@@ -13,6 +13,9 @@ export async function POST(req: Request) {
     title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
   const published = Boolean(form.get('published'));
+
+const prisma = getMystiquillPrisma();
+const entry = await prisma.odysseyEntry.findMany();
 
   await mystiquillPrisma.odysseyEntry.create({
     data: {

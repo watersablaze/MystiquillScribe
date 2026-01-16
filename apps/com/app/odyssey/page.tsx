@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { mystiquillPrisma } from '@/lib/db/mystiquill';
+import { getMystiquillPrisma } from '@/lib/db/mystiquill';
 import styles from './odyssey.module.css';
 
 type Params = { tag: string };
