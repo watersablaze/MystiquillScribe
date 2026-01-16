@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["next", "next/image-types", "node"]
+  },
+  "include": [
+    ".",
+    "../../packages"
+  ]
+}

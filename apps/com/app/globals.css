@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===============================
+   CORE THEME VARIABLES
+=============================== */
+
+:root {
+  --mauve-ink: #7b5f72;
+  --mauve-rich: rgba(123, 95, 114, 0.55);
+  --mauve-soft: rgba(123, 95, 114, 0.32);
+  --mauve-glow: rgba(123, 95, 114, 0.22);
+  --plum-electric: rgba(165, 190, 255, 0.75);
+  --plum-electric-soft: rgba(165, 190, 255, 0.45);
+  --plum-electric-faint: rgba(165, 190, 255, 0.25);
+  --gold-soft: rgba(255, 215, 160, 0.45);
+  --gold-glow: rgba(255, 200, 140, 0.65);
+  --gold-core: rgba(255, 225, 180, 0.9);
+
+  --ink: #2a241e;
+}
+
+/* ===============================
+   RESET
+=============================== */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* ===============================
+   MYSTIQUILL CANVAS
+=============================== */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 220, 240, 0.06),
+    transparent 70%
+  );
+
+  animation: breathSweep 22s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes breathSweep {
+  0% {
+    transform: translateX(-20%);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateX(20%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(-20%);
+    opacity: 0.2;
+  }
+}
+
+body {
+  background:
+    radial-gradient(
+      1200px 600px at 50% -180px,
+      rgba(150, 95, 135, 0.55),
+      transparent 65%
+    ),
+    radial-gradient(
+      900px 520px at 70% 12%,
+      rgba(90, 55, 80, 0.45),
+      transparent 60%
+    ),
+    linear-gradient(
+      to bottom,
+      #2b1f29,
+      #1b141a
+    );
+
+  background-attachment: fixed;
+  animation: backgroundDrift 60s ease-in-out infinite;
+}
+
+@keyframes backgroundDrift {
+  0% {
+    background-position:
+      50% 0%,
+      70% 12%,
+      0% 0%;
+  }
+  50% {
+    background-position:
+      48% -2%,
+      72% 14%,
+      0% 0%;
+  }
+  100% {
+    background-position:
+      50% 0%,
+      70% 12%,
+      0% 0%;
+  }
+}
+
+/* editorial grain */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+
+  mix-blend-mode: soft-light;
+}
+
+@keyframes slowBreath {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(
+      900px 420px at 50% 10%,
+      rgba(200, 120, 170, 0.18),
+      transparent 70%
+    );
+  animation: slowBreath 18s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.quill {
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+
+  color: rgba(245, 215, 235, 0.85);
+
+  display: inline-block;
+  margin-top: 1.6rem;
+
+  font-feature-settings: "liga", "kern";
+}

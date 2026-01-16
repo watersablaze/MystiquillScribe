@@ -1,0 +1,103 @@
+/* ===============================
+ACCESS PAGE · ROOT
+================================ */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+
+  color: rgba(255, 245, 235, 0.92);
+}
+
+/* ─────────────────────────────
+THRESHOLD
+───────────────────────────── */
+
+.header {
+  text-align: center;
+  margin-bottom: 3.8rem;
+}
+
+.kicker {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.title {
+  margin-top: 1.4rem;
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+
+.subtitle {
+  margin: 1.6rem auto 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  opacity: 0.7;
+  max-width: 52ch;
+}
+
+/* ─────────────────────────────
+RAIL (SPATIAL DIVIDER)
+───────────────────────────── */
+
+.rail {
+  width: 1px;
+  height: 64px;
+  margin: 2.8rem auto;
+
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(140, 185, 255, 0.6),
+    transparent
+  );
+}
+
+/* ─────────────────────────────
+BODY
+───────────────────────────── */
+
+.body {
+  text-align: center;
+  max-width: 58ch;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.note {
+  margin-top: 2.4rem;
+  font-size: 0.8rem;
+  opacity: 0.65;
+}
+
+/* ─────────────────────────────
+RETURN NOTE
+───────────────────────────── */
+
+.returnNote {
+  margin-top: 2rem;
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+/* ─────────────────────────────
+FOOTER
+───────────────────────────── */
+
+.footer {
+  margin-top: 6rem;
+  text-align: center;
+  font-size: 0.7rem;
+  opacity: 0.5;
+}

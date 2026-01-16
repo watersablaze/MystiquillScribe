@@ -1,0 +1,601 @@
+/* ===============================
+   PAGE CANVAS
+================================ */
+
+.page {
+  min-height: 100vh;
+  padding: 8rem 2rem 7rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.page::after {
+  content: none;
+}
+
+/* ===============================
+   EDITORIAL SPREAD
+================================ */
+
+.spread {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 4.5rem;
+
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* ===============================
+   HEADER SANCTUARY
+================================ */
+
+.header {
+  max-width: 980px;
+  width: 100%;
+  position: relative;
+
+  padding-top: 3.5rem;
+  padding-bottom: 5.5rem;
+}
+
+/* Ceremonial glow — crowns the space */
+.header::before {
+  content: "";
+  position: absolute;
+  top: -180px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 820px;
+  height: 360px;
+
+  background: radial-gradient(
+    420px 220px at 50% 45%,
+    rgba(190, 150, 170, 0.28),
+    transparent 70%
+  );
+
+  filter: blur(20px);
+  opacity: 0.65;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes slowPulse {
+  0% { opacity: 0.75; }
+  50% { opacity: 1; }
+  100% { opacity: 0.75; }
+}
+
+@keyframes drift {
+  0%   { transform: translateX(-50%) translateY(0); }
+  50%  { transform: translateX(-50%) translateY(14px); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+
+/* ===============================
+   TYPOGRAPHY
+================================ */
+
+.kicker {
+  font-size: 0.75rem;
+  font-variant: small-caps;
+  letter-spacing: 0.36em;
+  font-weight: 500;
+  text-transform: uppercase;
+
+  color: rgba(235, 205, 225, 0.9);
+  margin-bottom: 1.6rem;
+
+  animation: whisperIn 1.4s ease-out both;
+}
+
+@keyframes whisperIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    letter-spacing: 0.48em;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 0.42em;
+  }
+}
+
+.h1 {
+  font-size: clamp(2.6rem, 6.5vw, 3.4rem);
+  line-height: 1.12;
+  font-weight: 300;
+
+  color: #f6eef3;
+  max-inline-size: 66ch;
+  text-wrap: balance;
+  letter-spacing: -0.012em;
+  margin-bottom: 2.4rem; /* was implicit */
+
+  text-shadow:
+    0 0 22px rgba(245, 200, 230, 0.18);
+
+  font-feature-settings: "liga", "kern";
+  text-rendering: optimizeLegibility;
+
+  animation: invokeIn 1.8s ease-out both;
+  animation-delay: 0.2s;
+}
+
+@keyframes invokeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.p {
+  margin-top: 0rem;
+  margin-bottom: 2.2rem;
+  font-size: 1.03rem;
+  line-height: 1.8;
+
+  color: rgba(245, 230, 240, 0.68);
+  max-inline-size: 66ch;
+
+  font-feature-settings: "liga", "kern";
+  text-rendering: optimizeLegibility;
+
+  animation: declareIn 1.6s ease-out both;
+  animation-delay: 0.6s;
+}
+
+@keyframes declareIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+   RITUAL DIVIDER
+================================ */
+
+.ritualDivider {
+  margin: 4.5rem 0 3.5rem;
+  width: 720px;
+  height: 1px;
+  opacity: 0.6;
+
+  background: linear-gradient(
+    to right,
+    rgba(245, 200, 230, 0.55),
+    rgba(245, 200, 230, 0.15),
+    transparent
+  );
+
+  position: relative;
+}
+
+.ritualDivider::after {
+  content: "✦";
+  position: absolute;
+  right: -18px;
+  top: -0.55rem;
+
+  font-size: 0.6rem;
+  color: rgba(245, 200, 230, 0.45);
+}
+
+/* ===============================
+   PATH INDEX — RIGHT COLUMN
+================================ */
+
+.pathIndex::before {
+  content: "Index";
+  display: block;
+
+  font-size: 0.6rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+
+  margin-bottom: 1.6rem;
+  color: rgba(165, 190, 255, 0.45);
+}
+
+.pathIndex {
+  position: relative;
+  padding-top: 6.5rem;
+  color: var(--plum-electric-soft);
+}
+
+.pathLabel {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin-bottom: 2.4rem;
+  color: var(--plum-electric-faint);
+}
+
+/* Paths feel catalogued, not clickable-first */
+.pathList {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6rem;
+  margin-bottom: 4.5rem;
+}
+
+.path {
+  position: relative;
+  padding-left: 1.2rem;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.4s ease;
+}
+
+.path::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.1rem;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+  to bottom,
+  transparent,
+  rgba(165, 190, 255, 0.45),
+  transparent
+);
+  opacity: 0.3;
+}
+
+.path:hover {
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(165, 190, 255, 0.35);
+}
+
+.path:hover::before {
+  opacity: 0.8;
+}
+
+.pathName {
+  display: block;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  color: var(--plum-electric);
+  text-shadow: 0 0 12px rgba(165, 190, 255, 0.35);
+}
+
+.pathMeta {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  opacity: 0.55;
+}
+
+/* ===============================
+   TRUST FOOTER — QUIET AUTHORITY
+================================ */
+
+.trustGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+.trustQuill {
+  justify-self: start;   /* aligns with right column edge */
+  align-self: flex-start;
+}
+
+.trustMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  line-height: 1.38;          /* tighter than footer default */
+  max-width: 52ch;
+}
+
+.trust {
+  margin-top: 8rem;
+  margin-right: 8rem;
+  padding-top: 1.4rem;
+
+  max-width: 1360px;
+  width: 100%;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: rgba(245, 230, 240, 0.55);
+}
+
+.trust strong {
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.trustMeta {
+  margin-top: 0.9rem;
+  opacity: 0.7;
+}
+
+.trust a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.trust a:hover {
+  text-decoration: underline;
+}
+
+/* ===============================
+   ARRIVAL
+================================ */
+
+.arrival {
+  animation: arrive 1.6s ease-out both;
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.axis {
+  position: absolute;
+  left: 10.25rem;
+  top: 0;
+  height: 100%;
+  width: 1px;
+
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(245, 200, 230, 0.45),
+    transparent
+  );
+
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.charge {
+  color: #fff6fb;
+  text-shadow:
+    0 0 18px rgba(245, 200, 230, 0.65);
+
+}
+
+/* ===============================
+RIGHT COLUMN — EDITORIAL RAIL
+================================ */
+
+.sideLabel {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin-bottom: 1.2rem;
+  color: var(--plum-electric-faint);
+}
+
+.studioNote {
+  margin-top: 3.6rem;
+  padding-left: 1.4rem;
+  position: relative;
+  max-width: 220px;
+}
+
+.studioNote::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.3rem;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(245, 200, 230, 0.35),
+    transparent
+  );
+  opacity: 0.3;
+}
+
+.sideText {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  opacity: 0.55;
+  color: rgba(245, 230, 240, 0.6);
+}
+
+.archive {
+  margin-top: 4.5rem;
+  padding-top: 2.4rem;
+  border-top: 1px solid rgba(245, 200, 230, 0.18);
+}
+
+.archiveMeta {
+  display: block;
+  font-size: 0.7rem;
+  margin-top: 0.4rem;
+  opacity: 0.55;
+}
+
+/* ===============================
+QUILL VOICE
+================================ */
+
+.quill {
+  font-style: italic;
+  font-size: 0.8rem;
+  line-height: 1.6;
+
+  font-family:
+    "Iowan Old Style",
+    "Adobe Caslon Pro",
+    "Libre Baskerville",
+    serif;
+
+  color: rgba(180, 195, 255, 0.65);
+  letter-spacing: 0.02em;
+
+  text-align: left;              /* important */
+  max-width: 32ch;               /* keeps it poetic */
+  margin-top: 0;                 /* footer controls spacing */
+}
+
+.quill::before {
+  content: "— ";
+  opacity: 0.4;
+}
+
+.centerMoment {
+  margin-top: 8.4rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+}
+
+.vow {
+  margin: 0;
+
+  font-size: 0.9rem;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  gap: 2.2rem;
+  text-align: center;
+
+  flex-direction: column;
+  align-items: center;
+
+  color: rgba(245, 215, 235, 0.75);
+
+  max-width: 40ch;
+
+  opacity: 0;
+  animation: vowIn 1.6s ease-out forwards;
+  animation-delay: 0.9s;
+}
+
+@keyframes vowIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.invitation {
+  margin-top: 2.2rem;
+}
+
+.odysseyPortal {
+  display: inline-block;
+
+  font-size: 0.75rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+
+  color: var(--gold-core);
+  text-decoration: none;
+
+  padding: 0.7rem 1.8rem;
+
+  border: 1px solid var(--gold-soft);
+  border-radius: 999px;
+
+  background:
+    radial-gradient(
+      120% 180% at 50% 0%,
+      rgba(255, 215, 160, 0.18),
+      rgba(255, 200, 140, 0.06)
+    );
+
+  backdrop-filter: blur(6px);
+
+  box-shadow:
+    0 0 0 rgba(0, 0, 0, 0);
+
+  transition:
+    border-color 0.4s ease,
+    background 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.4s ease;
+}
+
+.odysseyPortal:hover {
+  border-color: var(--gold-glow);
+  background:
+    radial-gradient(
+      120% 180% at 50% 0%,
+      rgba(255, 220, 170, 0.28),
+      rgba(255, 200, 140, 0.12)
+    );
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 28px rgba(255, 210, 150, 0.45);
+}
+
+/* ===============================
+   SANCTUM VEIL
+   =============================== */
+
+.sanctum {
+  position: relative;
+  width: 100%;
+  max-width: 980px;
+}
+
+.sanctum::before {
+  content: "";
+  position: absolute;
+  inset: -3rem -2.5rem -4.5rem -2.5rem;
+
+  background:
+    radial-gradient(
+      60% 45% at 50% 12%,
+      rgba(200, 150, 185, 0.18),
+      transparent 50%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(120, 80, 110, 0.14),
+      rgba(40, 25, 35, 0.18)
+    );
+
+  border-radius: 48px;
+  filter: blur(5px);
+
+  pointer-events: none;
+  z-index: -1;
+}
+

@@ -1,0 +1,376 @@
+/* ===============================
+LAYOUT
+=============================== */
+
+.splitShell {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+  min-height: calc(100vh - 4rem);
+  padding: 2rem;
+}
+
+/* ===============================
+LEFT — EDITOR
+=============================== */
+
+.editorPane {
+  background:
+    radial-gradient(
+      ellipse at top,
+      rgba(199,155,90,0.08),
+      transparent 55%
+    ),
+    linear-gradient(
+      to bottom,
+      #14121a,
+      #0f0d12
+    );
+
+  border-radius: 18px;
+  padding: 2.6rem;
+  position: relative;
+  z-index: 2;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.035),
+    0 28px 90px rgba(0,0,0,0.55);
+}
+
+.heading {
+  font-size: 1.55rem;
+  margin-bottom: 0.4rem;
+}
+
+.badge {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 1.4rem;
+}
+
+/* ===============================
+FIELDS
+=============================== */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1.15rem;
+}
+
+.labelText {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.65;
+}
+
+/* Inputs / Textareas / Selects */
+
+.editorPane input,
+.editorPane textarea,
+.editorPane select {
+  background: rgba(15,12,22,0.65);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+
+  color: rgba(255,245,235,0.96);
+  caret-color: rgba(199,155,90,0.8);
+  outline: none;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.editorPane textarea {
+  min-height: 240px;
+  resize: vertical;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+}
+
+.editorPane select {
+  appearance: none;
+  background-image:
+    linear-gradient(
+      45deg,
+      transparent 50%,
+      rgba(199,155,90,0.8) 50%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(199,155,90,0.8) 50%,
+      transparent 50%
+    );
+  background-position:
+    calc(100% - 16px) 50%,
+    calc(100% - 11px) 50%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.editorPane input:focus,
+.editorPane textarea:focus,
+.editorPane select:focus {
+  background: rgba(18,15,26,0.85);
+  border-color: rgba(199,155,90,0.65);
+  box-shadow: 0 0 14px rgba(199,155,90,0.22);
+}
+
+.editorPane textarea::placeholder {
+  opacity: 0.45;
+}
+
+/* ===============================
+CONTROLS (COMMAND RAIL)
+=============================== */
+
+.controlsRow {
+  position: sticky;
+  bottom: 0;
+  margin-top: 1.6rem;
+  padding: 1.1rem 0 0.6rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(15,13,18,0.98),
+      rgba(15,13,18,0.75),
+      rgba(15,13,18,0)
+    );
+
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ===============================
+BUTTONS
+=============================== */
+
+.saveButton,
+.publishButton {
+  border-radius: 999px;
+  padding: 0.55rem 1.6rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
+}
+
+/* SAVE — visible, calm, primary */
+
+.saveButton {
+  background: linear-gradient(
+    120deg,
+    #6f63d6,
+    #b07aa6,
+    #e0c27a
+  );
+  background-size: 200% 200%;
+
+  color: #1b1408;
+
+  text-shadow:
+    0 1px 0 rgba(255,255,255,0.25),
+    0 0 6px rgba(255,255,255,0.15);
+
+  box-shadow:
+    0 0 10px rgba(212,179,108,0.55),
+    0 0 24px rgba(75,63,163,0.45);
+
+  border: none;
+  cursor: pointer;
+}
+
+.saveButton:hover {
+  transform: translateY(-1px);
+  background-position: 100% 0;
+}
+
+.saveButton:active {
+  transform: translateY(0);
+}
+
+/* PUBLISH — deliberate, ceremonial */
+
+.publishButton {
+  border: 1px solid rgba(212,179,108,0.65);
+  background: rgba(212,179,108,0.92);
+  color: #2a1f0f;
+  cursor: pointer;
+
+  text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+}
+
+.publishButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.publishButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ===============================
+STATUS
+=============================== */
+
+.statusRow {
+  margin-top: 0.6rem;
+  font-size: 0.7rem;
+
+  color: rgba(255,245,235,0.82);
+  letter-spacing: 0.04em;
+
+  text-shadow: 0 0 4px rgba(0,0,0,0.45);
+}
+
+/* ===============================
+RIGHT — PREVIEW
+=============================== */
+
+.previewPane {
+  position: relative;
+  border-radius: 14px;
+  border: 1px solid rgba(212,179,108,0.3);
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(169,122,183,0.16),
+      transparent 70%
+    ),
+    rgba(19,13,33,0.94);
+}
+
+.previewPane::after {
+  content: 'Waiting for ink…';
+  position: absolute;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.previewBody {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2.4rem;
+
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: rgba(255,245,235,0.94);
+}
+
+/* ===============================
+STATES
+=============================== */
+
+.writing .editorPane {
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.06),
+    0 0 0 1px rgba(199,155,90,0.18),
+    0 36px 140px rgba(199,155,90,0.24);
+}
+
+.resting .previewPane {
+  filter: brightness(0.93) saturate(0.88);
+}
+
+/* ===============================
+VEIL COLLAPSE
+=============================== */
+
+.collapse {
+  animation: veilCollapse 0.65s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes veilCollapse {
+  to {
+    opacity: 0;
+    filter: blur(14px);
+    transform: scale(0.985);
+  }
+}
+
+/* ===============================
+ARCHIVE TOGGLE
+=============================== */
+
+.archiveToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.archiveToggle input {
+  accent-color: rgba(199,155,90,0.8);
+  cursor: pointer;
+}
+
+.archiveToggle span {
+  cursor: pointer;
+}
+
+.fieldHint {
+  font-size: 0.65rem;
+  opacity: 0.55;
+  margin-top: 0.35rem;
+}
+
+.headerRow {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+  margin-bottom: 1.4rem;
+}
+
+.accessBadge {
+  font-size: 0.55rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  opacity: 0.85;
+}
+
+.access_open {
+  color: rgba(180, 210, 255, 0.85);
+  border-color: rgba(180, 210, 255, 0.35);
+}
+
+.access_guided {
+  color: rgba(245, 200, 150, 0.9);
+  border-color: rgba(245, 200, 150, 0.45);
+}
+
+.access_patron {
+  color: rgba(200, 180, 255, 0.9);
+  border-color: rgba(200, 180, 255, 0.45);
+}

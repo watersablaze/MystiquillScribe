@@ -1,0 +1,52 @@
+.page {
+  min-height: 100vh;
+  padding: 7rem 2rem 4rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* MASSIVE MAUVE HALO */
+.page::before {
+  content: "";
+  position: absolute;
+  inset: -220px -120px auto -120px;
+  height: 520px;
+
+  background:
+    radial-gradient(
+      720px 420px at 50% 0%,
+      rgba(123, 95, 114, 0.85),
+      transparent 60%
+    );
+
+  pointer-events: none;
+  z-index: -1;
+}
+
+.header {
+  max-width: 960px;
+  width: 100%;
+  position: relative;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: -160px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 820px;
+  height: 360px;
+
+  background: radial-gradient(
+    420px 220px at 50% 50%,
+    rgba(190, 120, 160, 0.45),
+    transparent 65%
+  );
+
+  filter: blur(10px);
+  pointer-events: none;
+  z-index: -1;
+}

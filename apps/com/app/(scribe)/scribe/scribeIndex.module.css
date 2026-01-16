@@ -1,0 +1,129 @@
+.scribeIndex {
+  min-height: 100vh;
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.scribeHeaderTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scribeFilters a {
+  margin-right: 0.5rem;
+  opacity: 0.6;
+}
+
+.scribeFilters a.active {
+  opacity: 1;
+}
+
+.scribeRow {
+  display: grid;
+  grid-template-columns: 1fr 100px 220px;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+
+.scribeLedger {
+  margin-top: 3rem;
+  padding: 1.5rem 2rem;
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.03),
+      rgba(255,255,255,0.01)
+    );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.04),
+    0 20px 60px rgba(0,0,0,0.45);
+}
+
+.scribeLedgerHeader,
+.scribeLedgerRow {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 1fr 2fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.scribeLedgerHeader {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.6;
+}
+
+.scribeLedgerRow {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.2s ease;
+}
+
+.scribeLedgerRow:hover {
+  background: rgba(255,255,255,0.035);
+}
+
+.ledgerTitle .slug {
+  display: block;
+  opacity: 0.5;
+  font-size: 0.8rem;
+}
+
+.ledgerTitle strong {
+  font-weight: 500;
+}
+
+.ledgerActions a {
+  margin-right: 0.75rem;
+}
+
+.ledgerTitle a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.ledgerStatus {
+  opacity: 0.85;
+}
+
+.ledgerStatus:has(:contains("Draft")) {
+  color: #bbaaff;
+}
+
+.ledgerStatus:has(:contains("Sealed")) {
+  color: #e0c27a;
+}
+
+.ledgerStatus:has(:contains("Archived")) {
+  opacity: 0.45;
+}
+
+.slug {
+  opacity: 0.45;
+  font-size: 0.8rem;
+}
+
+.ledgerDate {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  gap: 0.15rem;
+}
+
+.origin {
+  opacity: 0.75;
+}
+
+.updated {
+  opacity: 0.45;
+}

@@ -1,0 +1,25 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+
+  text-align: center;
+  color: rgba(255, 245, 235, 0.92);
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 1.6rem;
+}
+
+.text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  opacity: 0.75;
+}

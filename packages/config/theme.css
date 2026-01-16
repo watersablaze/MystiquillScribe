@@ -1,0 +1,14 @@
+/* Global design tokens */
+:root {
+  --mauve: #a97ab7;
+  --indigo: #4b3fa3;
+  --gold: #d4b36c;
+  --silver: #c9c9d1;
+
+  --vellum-bg: rgba(230, 220, 202, 0.08);
+  --vellum-border: rgba(212, 179, 108, 0.5);
+
+  --ink: #f4eee2;
+
+  --bg-altar: #05040a;
+}

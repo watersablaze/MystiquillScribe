@@ -1,0 +1,2 @@
+.prose h1, .prose h2, .prose h3 { font-family: var(--font-serif, serif); }
+.prose a { color: var(--gold); }
