@@ -1,10 +1,10 @@
 import type { Config } from "tailwindcss";
 
-export default {
+const config: Config = {
   content: [
-  "./apps/**/*.{js,ts,jsx,tsx}",
-  "./packages/ui/**/*.{js,ts,jsx,tsx}"
-],
+    "./apps/**/*.{js,ts,jsx,tsx,mdx}",
+    "./packages/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -13,13 +13,15 @@ export default {
         gold: "var(--gold)",
         silver: "var(--silver)",
         vellum: "var(--vellum)",
-        ink: "var(--ink)"
+        ink: "var(--ink)",
       },
       fontFamily: {
         serif: ["Cormorant Garamond", "serif"],
-        sans: ["Inter", "system-ui", "sans-serif"]
-      }
-    }
+        sans: ["Inter", "system-ui", "sans-serif"],
+      },
+    },
   },
-  plugins: []
-} satisfies Config;
+  plugins: [],
+};
+
+export default config;
