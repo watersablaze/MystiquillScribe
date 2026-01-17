@@ -190,9 +190,10 @@ model OdysseyEntry {
   guidedTitle    String?
   guidedImageUrl String?
 
-  heroImage String?
-  category  String?
-  tags      String?
+  heroImage   String?
+  category    String?
+  tags        String?
+  publishedAt DateTime?
 
   published Boolean  @default(false)
   archived  Boolean  @default(false)

@@ -22,11 +22,11 @@ export default async function EditEntryPage({ params }: PageProps) {
       slug: true,
       content: true,
       category: true,
-      tags: true, // string | null
+      tags: true,
       published: true,
       archived: true,
       updatedAt: true,
-      publishedAt: true,
+      publishedAt: true, 
     },
   });
 
