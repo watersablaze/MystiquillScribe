@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
-    "build": "prisma generate --schema=../../prisma/schema.prisma && next build",
+    "build": "prisma generate && build",
     "start": "next start -p 3001"
   },
   "dependencies": {
