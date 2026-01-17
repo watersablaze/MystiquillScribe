@@ -2,9 +2,9 @@
   "name": "mystiquill-app",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev",
     "build": "prisma generate --schema=prisma-mystiquill/schema.prisma && next build",
-    "start": "next start -p 3001"
+    "start": "next start"
   },
   "prisma": {
     "schema": "prisma-mystiquill/schema.prisma"
