@@ -1,25 +1,17 @@
-// apps/com/app/lib/db/mystiquill.ts
+import { PrismaClient } from "@prisma/client";
 
-import { PrismaClient } from '@prisma/client';
-
-let cached: PrismaClient | null = null;
+declare global {
+  // Prevent multiple instances in dev / HMR
+  // eslint-disable-next-line no-var
+  var __mystiquillPrisma: PrismaClient | undefined;
+}
 
 export function getMystiquillPrisma() {
-  if (!process.env.DATABASE_URL_MYSTIQUILL) {
-    throw new Error(
-      'DATABASE_URL_MYSTIQUILL is not set. Mystiquill DB unavailable.'
-    );
-  }
-
-  if (!cached) {
-    cached = new PrismaClient({
-      datasources: {
-        db: {
-          url: process.env.DATABASE_URL_MYSTIQUILL,
-        },
-      },
+  if (!global.__mystiquillPrisma) {
+    global.__mystiquillPrisma = new PrismaClient({
+      datasourceUrl: process.env.DATABASE_URL_MYSTIQUILL,
     });
   }
 
-  return cached;
+  return global.__mystiquillPrisma;
 }
