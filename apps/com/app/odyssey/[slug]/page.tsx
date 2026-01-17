@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
 
-import { mystiquillPrisma } from "@/lib/db/mystiquill";
+import { getMystiquillPrisma } from "@/lib/db/mystiquill";
 import styles from "./entry.module.css";
 
 import { ContributePanel } from "../components/ContributePanel";
@@ -53,8 +53,9 @@ type PageProps = {
 
 export default async function OdysseyEntryPage({ params }: PageProps) {
   const { slug } = await params;
+  const prisma = getMystiquillPrisma();
 
-  const entry = await mystiquillPrisma.odysseyEntry.findUnique({
+  const entry = await prisma.odysseyEntry.findUnique({
     where: { slug },
   });
 
@@ -68,7 +69,7 @@ export default async function OdysseyEntryPage({ params }: PageProps) {
   const viewerEmail = cookieStore.get("mq_odyssey_email")?.value ?? null;
 
   const verifiedAccess = viewerEmail
-    ? await mystiquillPrisma.odysseyAccess.findFirst({
+    ? await prisma.odysseyAccess.findFirst({
         where: {
           entrySlug: entry.slug,
           email: viewerEmail,

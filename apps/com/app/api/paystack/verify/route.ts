@@ -1,11 +1,19 @@
-import { NextResponse } from 'next/server';
-import { getMystiquillPrisma } from '@/lib/db/mystiquill';
+// apps/com/app/api/paystack/verify/route.ts
 
-const PAYSTACK_SECRET = process.env.PAYSTACK_SECRET_KEY!;
+import { NextResponse } from 'next/server';
+import { getMystiquillPrisma } from "@/lib/db/mystiquill";
+
+const PAYSTACK_SECRET = process.env.PAYSTACK_SECRET_KEY;
 
 export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
+  if (!PAYSTACK_SECRET) {
+    return NextResponse.json(
+      { error: 'PAYSTACK_SECRET_KEY is not set' },
+      { status: 500 }
+    );
+  }
 
+  const { searchParams } = new URL(req.url);
   const reference = searchParams.get('reference');
   const entrySlug = searchParams.get('entry');
 
@@ -15,6 +23,8 @@ export async function GET(req: Request) {
       { status: 400 }
     );
   }
+
+  const prisma = getMystiquillPrisma();
 
   // 1) Verify with Paystack
   const res = await fetch(
@@ -27,9 +37,17 @@ export async function GET(req: Request) {
     }
   );
 
+  if (!res.ok) {
+    console.error('Paystack verify HTTP error', res.status);
+    return NextResponse.json(
+      { error: 'Paystack verification failed' },
+      { status: 502 }
+    );
+  }
+
   const data = await res.json();
 
-  if (!data?.status || data?.data?.status !== 'success') {
+  if (data?.data?.status !== 'success') {
     return NextResponse.json(
       { error: 'Payment not verified' },
       { status: 402 }
@@ -37,6 +55,7 @@ export async function GET(req: Request) {
   }
 
   const email: string | undefined = data?.data?.customer?.email;
+
   if (!email) {
     return NextResponse.json(
       { error: 'Missing customer email' },
@@ -44,8 +63,8 @@ export async function GET(req: Request) {
     );
   }
 
-  // 2) Persist access (per-email)
-  await mystiquillPrisma.odysseyAccess.upsert({
+  // 2) Persist verified access
+  await prisma.odysseyAccess.upsert({
     where: { reference },
     update: {
       verified: true,
@@ -62,7 +81,7 @@ export async function GET(req: Request) {
     },
   });
 
-  // 3) Redirect + set cookie on the RESPONSE (correct)
+  // 3) Redirect + set cookie
   const response = NextResponse.redirect(
     new URL(`/odyssey/${entrySlug}`, req.url)
   );

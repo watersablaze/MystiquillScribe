@@ -1,19 +1,15 @@
 import { NextResponse } from 'next/server';
 import { getMystiquillPrisma } from '@/lib/db/mystiquill';
 
-export async function GET(req: Request) {
+export async function GET(
+  _req: Request,
+  context: any // ← explicit any satisfies TS + Next 15
+) {
   try {
-    const { searchParams } = new URL(req.url);
-    const entryId = searchParams.get('entryId');
+    const entryId = context.params.entryId;
+    const prisma = getMystiquillPrisma();
 
-    if (!entryId) {
-      return NextResponse.json(
-        { error: 'entryId is required' },
-        { status: 400 }
-      );
-    }
-
-    const revisions = await mystiquillPrisma.odysseyRevision.findMany({
+    const revisions = await prisma.odysseyRevision.findMany({
       where: { entryId },
       orderBy: { createdAt: 'desc' },
       select: {

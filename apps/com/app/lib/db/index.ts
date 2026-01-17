@@ -1,4 +1,4 @@
-export { mystiquillPrisma } from './mystiquill';
+export { getMystiquillPrisma } from './mystiquill';
 
 /**
  * ❗ DO NOT export a default prisma client.

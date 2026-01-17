@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { mystiquillPrisma } from "@/lib/db/mystiquill";
+import { getMystiquillPrisma } from "@/lib/db/mystiquill";
 import styles from "../../odyssey.module.css";
 
 export const dynamic = "force-dynamic";
@@ -15,8 +15,9 @@ export default async function OdysseyCategoryPage({
 }: PageProps) {
   const { category } = await params;
   const decodedCategory = decodeURIComponent(category);
+  const prisma = getMystiquillPrisma();
 
-  const entries = await mystiquillPrisma.odysseyEntry.findMany({
+  const entries = await prisma.odysseyEntry.findMany({
     where: {
       published: true,
       category: decodedCategory,

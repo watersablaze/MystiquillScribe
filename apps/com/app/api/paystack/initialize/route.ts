@@ -1,5 +1,7 @@
+// apps/com/app/api/paystack/initialize/route.ts
+
 import { NextResponse } from 'next/server';
-import { getMystiquillPrisma } from '@/lib/db/mystiquill';
+import { getMystiquillPrisma } from "@/lib/db/mystiquill";
 
 const PAYSTACK_SECRET = process.env.PAYSTACK_SECRET_KEY;
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -35,7 +37,8 @@ export async function POST(req: Request) {
       );
     }
 
-    // Paystack expects amount in kobo (ZAR cents). You are already passing 2500_00 etc.
+    // Paystack expects amount in the smallest currency unit
+    // (kobo for NGN, cents for ZAR). Amount must already be multiplied.
     const callback_url = `${BASE_URL}/odyssey/access/return?entry=${encodeURIComponent(
       entry
     )}`;
@@ -76,12 +79,13 @@ export async function POST(req: Request) {
 
     const reference: string | undefined = paystackJson.data.reference;
 
-    // Optional but recommended: create a pending access record for auditing
+    // Create a pending access record (audit-safe)
     if (reference) {
-      await mystiquillPrisma.odysseyAccess.upsert({
+      const prisma = getMystiquillPrisma();
+
+      await prisma.odysseyAccess.upsert({
         where: { reference },
         update: {
-          // keep latest attempt info (helpful if someone retries)
           entrySlug: entry,
           email,
           accessType: 'GUIDED',
@@ -96,7 +100,6 @@ export async function POST(req: Request) {
       });
     }
 
-    // Return only what the client needs
     return NextResponse.json({
       authorization_url: paystackJson.data.authorization_url,
       access_code: paystackJson.data.access_code,

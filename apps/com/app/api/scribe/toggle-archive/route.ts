@@ -1,5 +1,7 @@
+// apps/com/app/api/scribe/toggle-archive/route.ts
+
 import { NextResponse } from 'next/server';
-import { getMystiquillPrisma } from '@/lib/db/mystiquill';
+import { getMystiquillPrisma } from "@/lib/db/mystiquill";
 
 export async function POST(req: Request) {
   const form = await req.formData();
@@ -12,7 +14,9 @@ export async function POST(req: Request) {
     );
   }
 
-  const entry = await mystiquillPrisma.odysseyEntry.findUnique({
+  const prisma = getMystiquillPrisma();
+
+  const entry = await prisma.odysseyEntry.findUnique({
     where: { id },
     select: { archived: true },
   });
@@ -24,10 +28,14 @@ export async function POST(req: Request) {
     );
   }
 
-  await mystiquillPrisma.odysseyEntry.update({
+  await prisma.odysseyEntry.update({
     where: { id },
     data: { archived: !entry.archived },
   });
 
-  return NextResponse.redirect('/scribe');
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ??
+    new URL(req.url).origin;
+
+  return NextResponse.redirect(`${baseUrl}/scribe`);
 }

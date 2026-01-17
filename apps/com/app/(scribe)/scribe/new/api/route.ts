@@ -4,26 +4,30 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   const form = await req.formData();
 
-  const title = (form.get('title') as string).trim();
-  const content = (form.get('content') as string).trim();
+  const title = (form.get("title") as string | null)?.trim();
+  const content = (form.get("content") as string | null)?.trim();
 
-  const slugRaw = (form.get('slug') as string | null) ?? '';
+  if (!title || !content) {
+    return NextResponse.json(
+      { error: "Title and content are required" },
+      { status: 400 }
+    );
+  }
+
+  const slugRaw = (form.get("slug") as string | null)?.trim() ?? "";
   const slug =
-    slugRaw.trim() ||
-    title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    slugRaw ||
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
 
-  const published = Boolean(form.get('published'));
+  const published = Boolean(form.get("published"));
 
-const prisma = getMystiquillPrisma();
-const entry = await prisma.odysseyEntry.findMany();
+  const prisma = getMystiquillPrisma();
 
-  await mystiquillPrisma.odysseyEntry.create({
-    data: {
-      title,
-      slug,
-      content,
-      published,
-    },
+  await prisma.odysseyEntry.create({
+    data: { title, slug, content, published },
   });
 
   return NextResponse.json({ ok: true });

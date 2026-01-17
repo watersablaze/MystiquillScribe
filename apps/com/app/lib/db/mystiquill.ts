@@ -2,7 +2,7 @@
 
 import { PrismaClient } from '@prisma/client';
 
-let prisma: PrismaClient | null = null;
+let cached: PrismaClient | null = null;
 
 export function getMystiquillPrisma() {
   if (!process.env.DATABASE_URL_MYSTIQUILL) {
@@ -11,8 +11,8 @@ export function getMystiquillPrisma() {
     );
   }
 
-  if (!prisma) {
-    prisma = new PrismaClient({
+  if (!cached) {
+    cached = new PrismaClient({
       datasources: {
         db: {
           url: process.env.DATABASE_URL_MYSTIQUILL,
@@ -21,5 +21,5 @@ export function getMystiquillPrisma() {
     });
   }
 
-  return prisma;
+  return cached;
 }

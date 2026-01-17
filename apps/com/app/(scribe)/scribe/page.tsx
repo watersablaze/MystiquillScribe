@@ -1,6 +1,6 @@
 // apps/com/app/(scribe)/scribe/page.tsx
 
-import { mystiquillPrisma } from "@/lib/db/mystiquill";
+import { getMystiquillPrisma } from "@/lib/db/mystiquill";
 import Link from "next/link";
 import styles from "./scribeIndex.module.css";
 
@@ -17,6 +17,7 @@ type PageProps = {
 export default async function ScribeIndex({ searchParams }: PageProps) {
   const resolved = (await searchParams) ?? {};
   const filter: Filter = resolved.filter ?? "all";
+  const prisma = getMystiquillPrisma();
 
   const where =
     filter === "draft"
@@ -27,7 +28,7 @@ export default async function ScribeIndex({ searchParams }: PageProps) {
       ? { archived: true }
       : {};
 
-  const entries = await mystiquillPrisma.odysseyEntry.findMany({
+  const entries = await prisma.odysseyEntry.findMany({
     where,
     orderBy: { updatedAt: "desc" },
     select: {

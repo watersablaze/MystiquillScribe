@@ -1,4 +1,4 @@
-import { mystiquillPrisma } from "@/lib/db/mystiquill";
+import { getMystiquillPrisma } from '@/lib/db/mystiquill';
 import { NextResponse } from "next/server";
 
 /**
@@ -9,7 +9,6 @@ function extractSlug(request: Request): string | null {
   const { pathname } = new URL(request.url);
   const parts = pathname.split("/").filter(Boolean);
 
-  // expected: [..., "edit", "[slug]", "api"]
   const apiIndex = parts.lastIndexOf("api");
   if (apiIndex < 1) return null;
 
@@ -17,37 +16,32 @@ function extractSlug(request: Request): string | null {
 }
 
 export async function GET(request: Request) {
+  const prisma = getMystiquillPrisma(); // ✅ ADD THIS
+
   const slug = extractSlug(request);
 
   if (!slug) {
-    return NextResponse.json(
-      { error: "Missing slug" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Missing slug" }, { status: 400 });
   }
 
-  const entry = await mystiquillPrisma.odysseyEntry.findUnique({
+  const entry = await prisma.odysseyEntry.findUnique({ // ✅ FIXED
     where: { slug },
   });
 
   if (!entry) {
-    return NextResponse.json(
-      { error: "Entry not found" },
-      { status: 404 }
-    );
+    return NextResponse.json({ error: "Entry not found" }, { status: 404 });
   }
 
   return NextResponse.json({ entry });
 }
 
 export async function POST(request: Request) {
+  const prisma = getMystiquillPrisma(); // ✅ ADD THIS
+
   const slugParam = extractSlug(request);
 
   if (!slugParam) {
-    return NextResponse.json(
-      { error: "Missing slug" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Missing slug" }, { status: 400 });
   }
 
   const form = await request.formData();
@@ -72,7 +66,7 @@ export async function POST(request: Request) {
 
   const published = Boolean(form.get("published"));
 
-  await mystiquillPrisma.odysseyEntry.update({
+  await prisma.odysseyEntry.update({ // ✅ FIXED
     where: { slug: slugParam },
     data: {
       title,

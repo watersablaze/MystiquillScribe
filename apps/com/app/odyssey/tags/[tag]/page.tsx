@@ -1,7 +1,7 @@
 // apps/com/app/odyssey/tags/[tag]/page.tsx
 
 import Link from "next/link";
-import { mystiquillPrisma } from "@/lib/db/mystiquill";
+import { getMystiquillPrisma } from "@/lib/db/mystiquill";
 import styles from "../../odyssey.module.css";
 
 export const dynamic = "force-dynamic";
@@ -15,8 +15,9 @@ type PageProps = {
 export default async function OdysseyTagPage({ params }: PageProps) {
   const { tag } = await params;
   const decodedTag = decodeURIComponent(tag);
+  const prisma = getMystiquillPrisma();
 
-  const posts = await mystiquillPrisma.odysseyEntry.findMany({
+  const posts = await prisma.odysseyEntry.findMany({
     where: {
       published: true,
       tags: {

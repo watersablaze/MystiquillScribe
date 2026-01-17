@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
-import { getMystiquillPrisma } from '@/lib/db/mystiquill';
+import { getMystiquillPrisma } from "@/lib/db/mystiquill";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const entryId = searchParams.get('entryId');
+  const prisma = getMystiquillPrisma();
 
   if (!entryId) {
     return NextResponse.json(
@@ -12,7 +13,7 @@ export async function GET(req: Request) {
     );
   }
 
-  const revisions = await mystiquillPrisma.odysseyRevision.findMany({
+  const revisions = await prisma.odysseyRevision.findMany({
     where: { entryId },
     orderBy: { createdAt: 'desc' },
     select: {

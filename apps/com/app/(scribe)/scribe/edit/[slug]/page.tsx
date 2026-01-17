@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { mystiquillPrisma } from "@/lib/db/mystiquill";
+import { getMystiquillPrisma } from '@/lib/db/mystiquill';
 import ScribeEditor from "../../new/ScribeEditor";
 
 export const dynamic = "force-dynamic";
@@ -12,8 +12,9 @@ type PageProps = {
 
 export default async function EditEntryPage({ params }: PageProps) {
   const { slug } = await params;
+  const prisma = getMystiquillPrisma();
 
-  const entry = await mystiquillPrisma.odysseyEntry.findUnique({
+  const entry = await prisma.odysseyEntry.findUnique({
     where: { slug },
     select: {
       id: true,
@@ -33,7 +34,7 @@ export default async function EditEntryPage({ params }: PageProps) {
 
   // Revisions only for sealed (published) works
   const revisions = entry.published
-    ? await mystiquillPrisma.odysseyRevision.findMany({
+    ? await prisma.odysseyRevision.findMany({
         where: { entryId: entry.id },
         orderBy: { createdAt: "desc" },
         select: {

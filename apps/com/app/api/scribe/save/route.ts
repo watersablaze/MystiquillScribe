@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getMystiquillPrisma } from '@/lib/db/mystiquill';
+import { getMystiquillPrisma } from "@/lib/db/mystiquill";
 
 function makeSlug(input: string): string {
   return input
@@ -32,6 +32,7 @@ function parseTags(tags: unknown): string | null {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    const prisma = getMystiquillPrisma();
 
     const {
       id,
@@ -86,7 +87,7 @@ export async function POST(req: Request) {
        UPDATE (ID-based, revision-aware)
        =============================== */
     if (id) {
-      const existing = await mystiquillPrisma.odysseyEntry.findUnique({
+      const existing = await prisma.odysseyEntry.findUnique({
         where: { id },
       });
 
@@ -99,7 +100,7 @@ export async function POST(req: Request) {
 
       // Capture revision only if already published
       if (existing.published) {
-        await mystiquillPrisma.odysseyRevision.create({
+        await prisma.odysseyRevision.create({
           data: {
             entryId: existing.id,
             title: existing.title,
@@ -108,7 +109,7 @@ export async function POST(req: Request) {
         });
       }
 
-      entry = await mystiquillPrisma.odysseyEntry.update({
+      entry = await prisma.odysseyEntry.update({
         where: { id },
         data: {
           title,
@@ -138,7 +139,7 @@ export async function POST(req: Request) {
        CREATE
        =============================== */
     else {
-      entry = await mystiquillPrisma.odysseyEntry.create({
+      entry = await prisma.odysseyEntry.create({
         data: {
           title,
           slug: finalSlug,

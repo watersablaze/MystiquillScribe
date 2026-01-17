@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
-import { getMystiquillPrisma } from '@/lib/db/mystiquill';
+import { getMystiquillPrisma } from "@/lib/db/mystiquill";
 import slugify from 'slugify';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    const prisma = getMystiquillPrisma();
 
     const slug =
       body.slug?.trim() ||
@@ -20,7 +21,7 @@ export async function POST(req: Request) {
             .join(',')
         : '';
 
-    const entry = await mystiquillPrisma.odysseyEntry.create({
+    const entry = await prisma.odysseyEntry.create({
       data: {
         title: body.title,
         slug,
