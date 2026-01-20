@@ -17,3 +17,9 @@ Deploy on Vercel and map:
 - mystiquill.com → same project
 - mystiquill.xyz → same project
 (Phase 1 we can add middleware if you want hard domain gating.)
+
+Vercel Build Contract
+Root: apps/com
+Build: pnpm build
+Output: .next
+This is intentional. Do not auto-detect.

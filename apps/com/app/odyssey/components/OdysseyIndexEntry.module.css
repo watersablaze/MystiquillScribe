@@ -1,0 +1,221 @@
+/* ===============================
+ODYSSEY INDEX SEMANTIC TOKENS
+================================ */
+
+.entry {
+  /* Text roles */
+  --odyssey-text-primary: var(--ink-primary);
+  --odyssey-text-secondary: var(--ink-secondary);
+  --odyssey-text-muted: var(--ink-muted);
+
+  /* Accent roles (default = guided) */
+  --odyssey-accent-core: var(--ink-accent-strong);
+  --odyssey-accent-soft: var(--ink-accent);
+  --odyssey-accent-faint: var(--ink-accent-soft);
+  --odyssey-accent-glow: var(--ink-accent-glow);
+
+  /* Opacity roles */
+  --odyssey-opacity-active: 0.82;
+  --odyssey-opacity-muted: 0.62;
+  --odyssey-opacity-held: 0.55;
+}
+
+.guided {
+  --odyssey-accent-core: var(--ink-accent-strong);
+  --odyssey-accent-soft: var(--ink-accent);
+  --odyssey-accent-glow: var(--ink-accent-glow);
+}
+
+.patron {
+  --odyssey-accent-core: var(--plum-electric);
+  --odyssey-accent-soft: var(--plum-electric-soft);
+  --odyssey-accent-glow: var(--plum-electric-soft);
+}
+
+/* ===============================
+ODYSSEY INDEX ENTRY
+================================ */
+
+.entry {
+  position: relative;
+  display: flex;
+  gap: 1.6rem;
+
+  text-decoration: none;
+  color: var(--odyssey-text-primary);
+  opacity: var(--odyssey-opacity-active);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  opacity: 0;
+  transform: translateY(10px);
+
+  animation: entryReveal 0.9s ease forwards;
+}
+
+.entry:nth-child(1)  { animation-delay: 0.05s; }
+.entry:nth-child(2)  { animation-delay: 0.12s; }
+.entry:nth-child(3)  { animation-delay: 0.20s; }
+.entry:nth-child(4)  { animation-delay: 0.28s; }
+.entry:nth-child(5)  { animation-delay: 0.36s; }
+.entry:nth-child(n+6){ animation-delay: 0.44s; }
+
+@keyframes entryReveal {
+  to {
+    opacity: var(--odyssey-opacity-active);
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry {
+    animation: none;
+    opacity: var(--odyssey-opacity-active);
+    transform: none;
+  }
+}
+
+.entry:hover {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+/* Subtle undertrace on hover */
+.entry::after {
+  content: "";
+  position: absolute;
+  left: 1.6rem;
+  right: 0;
+  bottom: -0.6rem;
+
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    var(--ink-accent),
+    transparent 70%
+  );
+
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.entry:hover::after {
+  opacity: 1;
+}
+
+.entry:nth-child(1) { animation-delay: 0.05s; }
+.entry:nth-child(2) { animation-delay: 0.12s; }
+.entry:nth-child(3) { animation-delay: 0.19s; }
+.entry:nth-child(4) { animation-delay: 0.26s; }
+.entry:nth-child(5) { animation-delay: 0.33s; }
+.entry:nth-child(6) { animation-delay: 0.40s; }
+.entry:nth-child(7) { animation-delay: 0.47s; }
+.entry:nth-child(8) { animation-delay: 0.54s; }
+
+/* ===============================
+EMBER MARK
+================================ */
+
+.ember {
+  width: 6px;
+  height: 6px;
+  margin-top: 0.6rem;
+  border-radius: 50%;
+
+  background: var(--odyssey-accent-core);
+  box-shadow: 0 0 14px var(--odyssey-accent-glow);
+
+  flex-shrink: 0;
+
+  animation: emberPulse 6s ease-in-out infinite;
+}
+
+@keyframes emberPulse {
+  0% { opacity: 0.65; }
+  50% { opacity: 0.85; }
+  100% { opacity: 0.65; }
+}
+
+/* ===============================
+ENTRY BODY
+================================ */
+
+.body {
+  max-width: 640px;
+}
+
+.title {
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.excerpt {
+  margin-top: 0.45rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--odyssey-text-secondary);
+}
+
+/* ===============================
+META LINE
+================================ */
+
+.meta {
+  margin-top: 0.9rem;
+
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  display: flex;
+  gap: 0.6rem;
+}
+
+.metaLabel {
+  color: var(--ink-accent-strong);
+}
+
+.metaDate {
+  color: var(--ink-muted);
+}
+
+/* ===============================
+STATE MODIFIERS
+================================ */
+
+.held {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.held .ember {
+  opacity: var(--odyssey-opacity-held);
+  cursor: default;
+  box-shadow: 0 0 8px var(--ink-accent-soft);
+}
+
+.heldNote {
+  margin-top: 0.45rem;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--odyssey-text-muted);
+}
+
+/* Guided but released */
+.guided {
+  opacity: 0.68;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry {
+    animation: none;
+    opacity: 0.82;
+    transform: none;
+  }
+}
+
+.accessMark {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--odyssey-accent-soft);
+}

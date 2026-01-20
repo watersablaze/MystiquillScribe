@@ -5,12 +5,12 @@ import { getMystiquillPrisma } from "@/lib/db/mystiquill";
 import styles from "./entry.module.css";
 
 import { ContributePanel } from "../components/ContributePanel";
-import { AccessButton } from "../access/AccessButton";
+import HeldInscription from "../components/HeldInscription";
 
 export const dynamic = "force-dynamic";
 
 /* ----------------------------------------
-Minimal bullet parser
+   Minimal bullet parser
 ----------------------------------------- */
 
 function escapeHtml(s: string) {
@@ -42,13 +42,11 @@ function bulletsToHtml(input: string) {
 }
 
 /* ----------------------------------------
-Page
+   Page
 ----------------------------------------- */
 
 type PageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise<{ slug: string }>;
 };
 
 export default async function OdysseyEntryPage({ params }: PageProps) {
@@ -64,6 +62,7 @@ export default async function OdysseyEntryPage({ params }: PageProps) {
   const isOpen = entry.accessType === "OPEN";
   const isGuided = entry.accessType === "GUIDED";
   const isPatron = entry.accessType === "PATRON";
+  const isReleased = Boolean(entry.publishedAt);
 
   const cookieStore = await cookies();
   const viewerEmail = cookieStore.get("mq_odyssey_email")?.value ?? null;
@@ -83,68 +82,45 @@ export default async function OdysseyEntryPage({ params }: PageProps) {
 
   const guidedMetaHtml = entry.guidedMeta
     ? bulletsToHtml(entry.guidedMeta)
-    : null;
+    : undefined;
+
+  /* ----------------------------------------
+     MODE RESOLUTION
+  ----------------------------------------- */
+
+  const mode: "held" | "guided" | "patron" =
+    isPatron ? "patron" : isGuided && !isReleased ? "held" : "guided";
 
   return (
-    <main className={styles.page}>
+    <main
+      className={[
+        styles.page,
+        isGuided ? styles.guidedPage : "",
+        isPatron ? styles.patronPage : "",
+      ].join(" ")}
+    >
       {/* ===============================
-         HEADER
-         =============================== */}
+          HEADER
+      =============================== */}
       <header className={styles.header}>
-        <div className={styles.headerInner}>
-          <span className={styles.kicker}>A Scribe’s Odyssey</span>
-          <h1 className={styles.title}>{entry.title}</h1>
-        </div>
+        <span className={styles.kicker}>A Scribe’s Odyssey</span>
+        <h1 className={styles.title}>{entry.title}</h1>
       </header>
 
       {/* ===============================
-         GUIDED THRESHOLD
-         =============================== */}
-      {!hasAccess && isGuided && (
-        <section className={styles.guidedOuter}>
-          <div className={styles.guidedGrid}>
-            <div className={styles.guidedPrimary}>
-              <p className={styles.guidedIntro}>
-                {entry.guidedIntro ??
-                  "This entry unfolds through guided editorial access."}
-              </p>
-            </div>
-
-            <div className={styles.guidedDivider} />
-
-            <div className={styles.guidedSecondary}>
-              {entry.guidedTitle && (
-                <span className={styles.guidedTitle}>
-                  {entry.guidedTitle}
-                </span>
-              )}
-
-              {guidedMetaHtml && (
-                <div
-                  className={styles.guidedMeta}
-                  dangerouslySetInnerHTML={{ __html: guidedMetaHtml }}
-                />
-              )}
-            </div>
-
-            <div className={styles.guidedAction}>
-              <AccessButton entry={entry.slug} />
-              <span className={styles.paymentNote}>
-                You’ll be redirected, then returned here.
-              </span>
-            </div>
-
-            <div className={styles.guidedFoot}>
-              Access is offered in alignment — sustaining work held with care
-              and accountability.
-            </div>
-          </div>
-        </section>
+          HELD / GUIDED / PATRON
+      =============================== */}
+      {!hasAccess && (isGuided || isPatron) && (
+        <HeldInscription
+          mode={mode}
+          released={isReleased}
+          metaHtml={guidedMetaHtml}
+        />
       )}
 
       {/* ===============================
-         BODY
-         =============================== */}
+          BODY
+      =============================== */}
       {hasAccess && (
         <article className={styles.body}>
           <div dangerouslySetInnerHTML={{ __html: entry.content }} />

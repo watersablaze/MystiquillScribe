@@ -1,44 +1,56 @@
 /* ===============================
+ODYSSEY INDEX SEMANTIC TOKENS
+================================ */
+
+.entry {
+  /* Text roles */
+  --odyssey-text-primary: var(--ink-primary);
+  --odyssey-text-secondary: var(--ink-secondary);
+  --odyssey-text-muted: var(--ink-muted);
+
+  /* Accent roles (default = guided) */
+  --odyssey-accent-core: var(--ink-accent-strong);
+  --odyssey-accent-soft: var(--ink-accent);
+  --odyssey-accent-faint: var(--ink-accent-soft);
+  --odyssey-accent-glow: var(--ink-accent-glow);
+
+  /* Opacity roles */
+  --odyssey-opacity-active: 0.82;
+  --odyssey-opacity-muted: 0.62;
+  --odyssey-opacity-held: 0.55;
+}
+
+.guided {
+  --odyssey-accent-core: var(--ink-accent-strong);
+  --odyssey-accent-soft: var(--ink-accent);
+  --odyssey-accent-glow: var(--ink-accent-glow);
+}
+
+.patron {
+  --odyssey-accent-core: var(--plum-electric);
+  --odyssey-accent-soft: var(--plum-electric-soft);
+  --odyssey-accent-glow: var(--plum-electric-soft);
+}
+/* ===============================
 PAGE ROOT
-=============================== */
+================================ */
 
 .page {
   min-height: 100vh;
   background:
     radial-gradient(
       ellipse at center 22%,
-      rgba(199, 155, 90, 0.12),
+      var(--accent-soft),
       transparent 62%
     ),
     #0f0d12;
-
-  color: rgba(255, 245, 235, 0.9);
-}
-
-/* global atmospheric veil */
-.page::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      ellipse at center 14%,
-      rgba(199, 155, 90, 0.14),
-      transparent 48%
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(15, 13, 18, 0.86),
-      rgba(15, 13, 18, 0.98) 72%
-    );
+  color: rgba(255, 245, 235, 0.92);
+  overflow-x: hidden;
 }
 
 /* ===============================
 HEADER
-=============================== */
+================================ */
 
 .header {
   max-width: 720px;
@@ -53,7 +65,7 @@ HEADER
   font-size: 0.75rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(199, 155, 90, 0.85);
+  color: var(--accent-core);
 }
 
 .title {
@@ -61,156 +73,138 @@ HEADER
   font-weight: 500;
   line-height: 1.25;
   letter-spacing: 0.02em;
-  color: rgba(255, 245, 235, 0.94);
 }
 
 /* ===============================
-GUIDED THRESHOLD
-=============================== */
+THRESHOLD ROOT
+================================ */
 
 .guidedOuter {
   width: 100%;
-  padding: 2.8rem 2rem 6rem;
+  padding: 4rem 1.5rem 6rem;
+  display: flex;
+  justify-content: center;
 }
 
 .guidedGrid {
-  max-width: 1100px;
-  margin: 0 auto;
-
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) 1px minmax(0, 0.95fr);
-  gap: 4rem;
-}
-
-/* LEFT — INSCRIPTION */
-
-.guidedPrimary {
-  position: relative;
-
-  font-size: clamp(1.6rem, 3.1vw, 2.05rem);
-  line-height: 1.55;
-  font-weight: 400;
-  letter-spacing: 0.015em;
-
-  color: rgba(255, 245, 235, 0.98);
-
-  max-width: 26ch; /* key change */
-}
-
-.guidedPrimary::before {
-  content: "";
-  position: absolute;
-  left: -1.4rem;
-  top: 0.2em;
-  width: 2px;
-  height: 6.2em;
-  background: linear-gradient(
-    to bottom,
-    rgba(245, 200, 230, 0.75),
-    rgba(245, 200, 230, 0.15),
-    transparent
-  );
-}
-
-.guidedIntro {
-  line-height: 1.82;
-  font-weight: 300;
-}
-
-.guidedIntro p + p {
-  margin-top: 0.8em;
-}
-
-/* DIVIDER */
-
-.guidedDivider {
-  width: 1px;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(199, 155, 90, 0.55),
-    transparent
-  );
-}
-
-/* RIGHT — CONTEXT */
-
-.guidedSecondary {
+  max-width: 560px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* anchor */
-  text-align: left;
-  gap: 1.4rem;
-  padding-top: 0.2rem;
-}
-
-.guidedTitle {
-  font-size: 0.68rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-
-  color: rgba(199, 155, 90, 0.9);
-  opacity: 1;
-
-  margin-top: 1rem;
-}
-
-.guidedArrow {
-  width: 10px;
-  height: 10px;
-  border-right: 1px solid rgba(245, 200, 230, 0.55);
-  border-bottom: 1px solid rgba(245, 200, 230, 0.55);
-  transform: rotate(45deg);
+  align-items: center;
+  gap: 2.6rem;
+  text-align: center;
 }
 
 /* ===============================
-GUIDED META — BULLET POLISH
-=============================== */
+HELD LABEL (STAMP)
+================================ */
+
+.heldLabel {
+  font-size: 0.62rem;
+  letter-spacing: 0.46em;
+  text-transform: uppercase;
+  color: var(--accent-core);
+  opacity: 0.85;
+}
+
+.heldLabel::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 1px;
+  margin: 1.2rem auto 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--accent-core),
+    transparent
+  );
+  opacity: 0.6;
+}
+
+
+/* Primary message */
+
+.guidedPrimary {
+  font-size: 1.12rem;          
+  line-height: 1.78;
+  font-weight: 350;
+
+  max-width: 42ch;
+  margin: 0 auto;
+
+  color: var(--ink-accent-strong);
+}
+
+.guidedPrimary strong {
+  font-weight: 500;
+  color: var(--accent-core);
+}
+
+.guidedStatement {
+  max-width: 48ch;
+}
+
+.statementLead {
+  font-size: 1.05rem;
+  margin-bottom: 1.2rem;
+}
+
+.statementBody {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  opacity: 0.88;
+}
+
+/* ===============================
+META (REAL BULLETS)
+================================ */
 
 .guidedMeta {
-  font-size: 0.92rem;
-  line-height: 1.75;
-  opacity: 0.88;
-  max-width: 40ch;
-  letter-spacing: 0.01em;
-  margin-top: 0.1rem;
+  max-width: 56ch;
 }
 
-/* reset browser list */
 .guidedMeta ul {
   list-style: none;
-  margin: 1.6rem 0;
   padding: 0;
+  margin: 0;
 }
 
-/* ceremonial bullet rows */
 .guidedMeta li {
-  position: relative;
-  padding-left: 1.4rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.8rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  opacity: 0.9;
 }
 
-/* intentional bullet glyph */
 .guidedMeta li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  top: 0.05em;
+  content: "—";
+  display: block;
+  margin-bottom: 0.6rem;
+  color: var(--accent-core);
+  opacity: 0.6;
+}
 
-  font-size: 0.85rem;
-  line-height: 1;
+/* ===============================
+META TITLE
+================================ */
 
-  color: rgba(245, 200, 150, 0.75);
-  opacity: 0.85;
+.guidedMetaTitle {
+  font-size: 0.6rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--accent-core);
+  opacity: 0.7;
+  margin-top: 2rem;
 }
 
 /* ===============================
 ACTION
-=============================== */
+================================ */
 
 .guidedAction {
-  grid-column: 1 / -1;
-  margin-top: 3.4rem;
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -221,21 +215,25 @@ ACTION
   font-size: 0.65rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  opacity: 0.7;
 }
 
+/* ===============================
+FOOT
+================================ */
+
+
 .guidedFoot {
-  grid-column: 1 / -1;
-  margin-top: 3.4rem;
-  text-align: center;
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
+  margin-top: 5rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
 /* ===============================
 BODY
-=============================== */
+================================ */
 
 .body {
   max-width: 640px;
@@ -245,44 +243,16 @@ BODY
   line-height: 1.9;
 }
 
-.body::before {
-  content: "";
-  display: block;
-  width: 64px;
-  height: 1px;
-  margin: 0 auto 2.4rem;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(199, 155, 90, 0.35),
-    transparent
-  );
-}
-
 /* ===============================
 MOBILE
-=============================== */
+================================ */
 
-@media (max-width: 920px) {
+@media (max-width: 720px) {
   .guidedGrid {
-    grid-template-columns: 1fr;
-    gap: 2.2rem;
+    gap: 2rem;
   }
 
-  .guidedDivider {
-    display: none;
-  }
-
-  .guidedPrimary {
-    max-width: none;
-    text-align: center;
-  }
-
-  .guidedPrimary::before {
-    display: none;
-  }
-
-  .guidedSecondary {
-    text-align: center;
+  .guidedMeta {
+    text-align: left;
   }
 }

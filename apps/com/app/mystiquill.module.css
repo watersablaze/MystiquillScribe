@@ -4,12 +4,15 @@
 
 .page {
   min-height: 100vh;
-  padding: 8rem 2rem 7rem;
+  padding: 6rem 2rem 4.5rem; /* reduced bottom */
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* KEY */
   align-items: center;
   position: relative;
+
+  overflow-x: hidden; /* prevents glow/blur edge scroll on mobile */
 }
 
 .page::after {
@@ -27,6 +30,9 @@
 
   max-width: 1200px;
   width: 100%;
+
+  /* max-height: 72vh;  <-- REMOVE: causes clipping on real phones */
+  min-height: 0; /* keeps grid children from overflow weirdness */
 }
 
 /* ===============================
@@ -251,11 +257,11 @@
   width: 1px;
   height: 100%;
   background: linear-gradient(
-  to bottom,
-  transparent,
-  rgba(165, 190, 255, 0.45),
-  transparent
-);
+    to bottom,
+    transparent,
+    rgba(165, 190, 255, 0.45),
+    transparent
+  );
   opacity: 0.3;
 }
 
@@ -310,17 +316,18 @@
 }
 
 .trust {
-  margin-top: 8rem;
-  margin-right: 8rem;
-  padding-top: 1.4rem;
+  margin-top: 3.5rem; /* was 8rem */
+  margin-right: 0;
 
-  max-width: 1360px;
+  padding-top: 1.2rem;
+
+  max-width: 1200px;
   width: 100%;
 
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 
-  font-size: 0.82rem;
-  line-height: 1.8;
+  font-size: 0.78rem;
+  line-height: 1.7;
   color: rgba(245, 230, 240, 0.55);
 }
 
@@ -384,7 +391,6 @@
   color: #fff6fb;
   text-shadow:
     0 0 18px rgba(245, 200, 230, 0.65);
-
 }
 
 /* ===============================
@@ -473,12 +479,11 @@ QUILL VOICE
 }
 
 .centerMoment {
-  margin-top: 8.4rem;
+  margin-top: 5.2rem; /* was 8.4rem */
 
   display: flex;
   flex-direction: column;
   align-items: center;
-
   text-align: center;
 }
 
@@ -488,14 +493,8 @@ QUILL VOICE
   font-size: 0.9rem;
   font-style: italic;
   letter-spacing: 0.1em;
-  gap: 2.2rem;
-  text-align: center;
-
-  flex-direction: column;
-  align-items: center;
 
   color: rgba(245, 215, 235, 0.75);
-
   max-width: 40ch;
 
   opacity: 0;
@@ -542,8 +541,7 @@ QUILL VOICE
 
   backdrop-filter: blur(6px);
 
-  box-shadow:
-    0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 
   transition:
     border-color 0.4s ease,
@@ -561,13 +559,12 @@ QUILL VOICE
       rgba(255, 200, 140, 0.12)
     );
   transform: translateY(-1px);
-  box-shadow:
-    0 0 28px rgba(255, 210, 150, 0.45);
+  box-shadow: 0 0 28px rgba(255, 210, 150, 0.45);
 }
 
 /* ===============================
    SANCTUM VEIL
-   =============================== */
+================================ */
 
 .sanctum {
   position: relative;
@@ -599,3 +596,100 @@ QUILL VOICE
   z-index: -1;
 }
 
+/* ===============================
+   MOBILE (CONSOLIDATED)
+================================ */
+
+@media (max-width: 768px) {
+  .page {
+    padding: 4.5rem 1.4rem 3.5rem;
+  }
+
+  .spread {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-content: start;
+  }
+
+  .pathIndex {
+    display: none; /* editorial rail collapses */
+  }
+
+  .header {
+    padding-top: 2.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .sanctum {
+    max-width: 100%;
+  }
+
+  .h1 {
+    font-size: clamp(2rem, 7vw, 2.4rem);
+    line-height: 1.18;
+    max-inline-size: 100%;
+  }
+
+  .p {
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  .kicker {
+    letter-spacing: 0.28em;
+    margin-bottom: 1.2rem;
+  }
+
+  .ritualDivider {
+    width: 100%;
+    max-width: 360px;
+    margin: 3.2rem auto 2.6rem;
+  }
+
+  .ritualDivider::after {
+    right: 0;
+  }
+
+  .centerMoment {
+    margin-top: 4.2rem;
+  }
+
+  .vow {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+  }
+
+  .odysseyPortal {
+    font-size: 0.7rem;
+    padding: 0.65rem 1.6rem;
+  }
+
+  .axis {
+    display: none;
+  }
+
+  .trustGrid {
+    grid-template-columns: 1fr;
+    gap: 2.2rem;
+  }
+
+  .trust {
+    margin-top: 3.5rem;
+    padding-top: 1.2rem;
+    font-size: 0.75rem;
+  }
+
+  .trustQuill {
+    max-width: 100%;
+  }
+
+  .quill {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .sanctum::before {
+    inset: -2rem -1.2rem -3rem -1.2rem; /* prevents wide blur overflow on phones */
+    border-radius: 34px;
+  }
+}

@@ -1,4 +1,38 @@
 /* ===============================
+ODYSSEY INDEX SEMANTIC TOKENS
+================================ */
+
+.entry {
+  /* Text roles */
+  --odyssey-text-primary: var(--ink-primary);
+  --odyssey-text-secondary: var(--ink-secondary);
+  --odyssey-text-muted: var(--ink-muted);
+
+  /* Accent roles (default = guided) */
+  --odyssey-accent-core: var(--ink-accent-strong);
+  --odyssey-accent-soft: var(--ink-accent);
+  --odyssey-accent-faint: var(--ink-accent-soft);
+  --odyssey-accent-glow: var(--ink-accent-glow);
+
+  /* Opacity roles */
+  --odyssey-opacity-active: 0.82;
+  --odyssey-opacity-muted: 0.62;
+  --odyssey-opacity-held: 0.55;
+}
+
+.guided {
+  --odyssey-accent-core: var(--ink-accent-strong);
+  --odyssey-accent-soft: var(--ink-accent);
+  --odyssey-accent-glow: var(--ink-accent-glow);
+}
+
+.patron {
+  --odyssey-accent-core: var(--plum-electric);
+  --odyssey-accent-soft: var(--plum-electric-soft);
+  --odyssey-accent-glow: var(--plum-electric-soft);
+}
+
+/* ===============================
    CONTAINER
 ================================ */
 
@@ -149,6 +183,18 @@
   max-width: 40ch;
 }
 
+@media (max-width: 768px) {
+  .thresholdTitle {
+    font-size: clamp(2.2rem, 7vw, 2.6rem);
+    line-height: 1.2;
+  }
+
+  .thresholdSubtitle {
+    font-size: 0.88rem;
+    max-width: 100%;
+  }
+}
+
 
 /* ===============================
    DIVIDER · CENTER RAIL
@@ -229,35 +275,6 @@ animation: dividerFlow 22s linear infinite alternate;}
   }
 }
 
-
-@keyframes dividerDrift {
-  0% {
-    transform: translateY(-30%);
-    opacity: 0.35;
-  }
-
-  40% {
-    opacity: 0.9;
-  }
-
-  60% {
-    opacity: 0.9;
-  }
-
-  100% {
-    transform: translateY(160%);
-    opacity: 0.35;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .divider::after {
-    animation: none;
-    opacity: 0.35;
-  }
-}
-
-
 /* ===============================
    FIELD · RIGHT COLUMN
 ================================ */
@@ -306,6 +323,14 @@ animation: dividerFlow 22s linear infinite alternate;}
     inset 0 -22px 46px rgba(180, 200, 255, 0.06);
 
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .archiveShell {
+    height: auto;
+    padding: 2.4rem 1.8rem;
+    transform: none;
+  }
 }
 
 @keyframes archiveBreath {
@@ -558,27 +583,51 @@ animation: dividerFlow 22s linear infinite alternate;}
 INSCRIPTION ACCESS NOTE
 ================================ */
 
-.accessNote {
-  margin-top: 0.6rem;
 
-  font-size: 0.62rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+@media (max-width: 900px) {
+  .spread {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
 
-  color: rgba(185, 200, 255, 0.55);
-  opacity: 0.85;
+  .divider {
+    display: none;
+  }
 }
 
+@media (max-width: 768px) {
+  .archiveScroll {
+    animation: none;
+    padding: 0;
+  }
+}
 
-.accessMark {
-  display: block;
-  margin-top: 0.35rem;
+/* GUIDED */
 
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
+.guided {
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+.guided .ember {
+  opacity: 0.45;
+  box-shadow: 0 0 8px rgba(199,155,90,0.25);
+}
+
+.heldIndexNote {
+  font-size: 0.8rem;
+  opacity: 0.55;
+  font-style: italic;
+}
+
+.accessMarkHeld {
+  font-size: 0.6rem;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
+  color: rgba(199, 155, 90, 0.65);
+}
 
-  color: rgba(180, 195, 255, 0.55);
-
-  opacity: 0.85;
+.inscription.held {
+  opacity: 0.55;
+  cursor: default;
 }

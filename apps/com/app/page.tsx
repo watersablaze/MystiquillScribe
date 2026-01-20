@@ -15,12 +15,12 @@ export default function Page() {
 
         <div className={styles.sanctum}>
         <header className={styles.header}>
-          <p className={styles.kicker}>Mystiquill.com</p>
+          <p className={styles.kicker}>Mystiquill</p>
 
           <h1 className={styles.h1}>
-            A creative and cultural platform for{" "}
+            A creative and cultural portal for{" "}
             <span className={styles.charge}>original writing</span>,{" "}
-            guided journeys, and curated experiences.
+            guided journeys, and curated experience.
           </h1>
 
           <p className={styles.p}>
@@ -84,8 +84,7 @@ export default function Page() {
           <div className={styles.studioNote}>
             <span className={styles.sideLabel}>Studio</span>
             <p className={styles.sideText}>
-              Mystiquill is a working studio — part archive, part sanctuary,
-              part unfolding manuscript.
+              Mystiquill is a working studio—part archive, part sanctuary, part unfolding manuscript.
             </p>
           </div>
         </aside>
@@ -96,11 +95,7 @@ export default function Page() {
   <div className={styles.trustGrid}>
     <div className={styles.trustMain}>
       <div>
-        <strong>Mystiquill</strong> is an independent creative and cultural studio.
-      </div>
-
-      <div>
-        Payments are processed securely. Full details are provided prior to any transaction.
+        <strong> Mystiquill is an independent creative and cultural studio. Payments are handled securely and disclosed clearly, in advance. </strong>
       </div>
 
       <div className={styles.trustMeta}>
@@ -113,7 +108,7 @@ export default function Page() {
     {/* Quill marginal note */}
     <aside className={styles.trustQuill}>
       <p className={styles.quill}>
-        Some offerings are free; others unfold as paid experiences,
+        Some offerings are free; others unfold as contributed experiences,
         guided with care and intention.
       </p>
     </aside>
