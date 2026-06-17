@@ -256,6 +256,33 @@
     0 14px 40px rgba(0, 0, 0, 0.25);
 }
 
+.successMessage,
+.errorMessage {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.successMessage {
+  border: 1px solid rgba(214, 183, 111, 0.38);
+  color: rgba(247, 237, 248, 0.9);
+  background: rgba(214, 183, 111, 0.09);
+}
+
+.errorMessage {
+  border: 1px solid rgba(255, 120, 120, 0.38);
+  color: rgba(255, 210, 210, 0.94);
+  background: rgba(255, 90, 90, 0.08);
+}
+
+.submitButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.68;
+  transform: none;
+}
+
 @media (max-width: 720px) {
   .page {
     padding-top: 5rem;

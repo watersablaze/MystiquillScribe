@@ -8,8 +8,8 @@ export const prisma =
   globalForPrisma.mystiquillPrisma ??
   new PrismaClient({
     log:
-      process.env.NODE_ENV === 'development'
-        ? ['query', 'error', 'warn']
+    process.env.NODE_ENV === 'development'
+        ? ['error', 'warn']
         : ['error'],
   })
 
