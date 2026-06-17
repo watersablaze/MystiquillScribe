@@ -237,3 +237,72 @@ model OdysseyAccess {
   @@index([entrySlug])
   @@index([email])
 }
+
+/* 
+  Mystiquill Partner Inquiries
+*/
+
+enum MystiquillPartnerType {
+  CREATIVE_COLLABORATOR
+  PATRON
+  INSTITUTIONAL
+  COMMISSION
+  CONTRIBUTOR
+  OTHER
+}
+
+enum MystiquillPartnerStatus {
+  NEW_INQUIRY
+  UNDER_REVIEW
+  ALIGNED_PENDING_CLARITY
+  NOT_ALIGNED
+  ARCHIVED_FOR_LATER
+  INVITED_TO_TRIAL
+  TRIAL_ACTIVE
+  TRIAL_COMPLETE
+  AGREEMENT_PENDING
+  ACTIVE_PARTNER
+  PAUSED
+  COMPLETED
+  RELEASED
+}
+
+model MystiquillPartnerInquiry {
+  id              String @id @default(cuid())
+
+  name            String
+  email           String
+  location        String?
+  website         String?
+  organization    String?
+
+  partnerType     MystiquillPartnerType
+  readiness       String?
+
+  intention       String
+  alignment       String?
+  offering        String?
+  needs           String?
+
+  timeline        String?
+  budget          String?
+  materials       String?
+  peopleInvolved  String?
+
+  scopeAgreement  Boolean @default(false)
+  creditAgreement Boolean @default(false)
+  trialAgreement  Boolean @default(false)
+
+  status          MystiquillPartnerStatus @default(NEW_INQUIRY)
+
+  internalNotes   String?
+  nextAction      String?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([email])
+  @@index([partnerType])
+  @@index([status])
+  @@index([createdAt])
+}

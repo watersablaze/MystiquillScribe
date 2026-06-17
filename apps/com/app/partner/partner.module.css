@@ -1,0 +1,351 @@
+.page {
+  min-height: 100vh;
+  padding: 7rem 1.25rem 5rem;
+  color: var(--ink-primary, #f7edf8);
+  background:
+    radial-gradient(circle at top left, rgba(168, 112, 180, 0.18), transparent 32rem),
+    radial-gradient(circle at top right, rgba(210, 174, 92, 0.12), transparent 30rem),
+    linear-gradient(180deg, #100818 0%, #140b22 45%, #0d0714 100%);
+}
+
+.hero,
+.statementSection,
+.pathsSection,
+.gatesSection,
+.protectionSection,
+.finalCta {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.hero {
+  display: grid;
+  gap: 1.5rem;
+  padding: 5rem 0 4rem;
+}
+
+.kicker,
+.eyebrow {
+  margin: 0;
+  color: var(--ink-accent, #d6b76f);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: 900px;
+  margin: 0;
+  font-size: clamp(3.2rem, 9vw, 8rem);
+  line-height: 0.88;
+  letter-spacing: -0.07em;
+}
+
+.subtitle {
+  max-width: 760px;
+  margin: 0;
+  color: var(--ink-secondary, rgba(247, 237, 248, 0.78));
+  font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+  line-height: 1.5;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.primaryLink,
+.secondaryLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.8rem 1.15rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease;
+}
+
+.primaryLink {
+  border: 1px solid rgba(214, 183, 111, 0.72);
+  color: #110815;
+  background: linear-gradient(135deg, #e9d28d, #b98f38);
+  box-shadow: 0 0 24px rgba(214, 183, 111, 0.18);
+}
+
+.primaryLink:hover,
+.primaryLink:focus-visible {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 32px rgba(214, 183, 111, 0.34),
+    0 14px 40px rgba(0, 0, 0, 0.25);
+}
+
+.secondaryLink {
+  border: 1px solid rgba(247, 237, 248, 0.2);
+  color: var(--ink-primary, #f7edf8);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.secondaryLink:hover,
+.secondaryLink:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(214, 183, 111, 0.55);
+  background: rgba(214, 183, 111, 0.08);
+  box-shadow: 0 0 22px rgba(214, 183, 111, 0.14);
+}
+
+.statementSection {
+  padding: 1rem 0 4.5rem;
+}
+
+.statementCard {
+  max-width: 880px;
+  padding: clamp(1.4rem, 4vw, 2.4rem);
+  border: 1px solid rgba(247, 237, 248, 0.14);
+  border-radius: 2rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
+    rgba(255, 255, 255, 0.02);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+}
+
+.statementCard h2,
+.sectionHeader h2,
+.protectionText h2,
+.finalCta h2 {
+  margin: 0.7rem 0 0;
+  font-size: clamp(2rem, 5vw, 4.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.statementCard p,
+.sectionHeader p,
+.pathCard p,
+.protectionText p {
+  color: var(--ink-secondary, rgba(247, 237, 248, 0.74));
+  line-height: 1.7;
+}
+
+.statementCard p {
+  max-width: 760px;
+  font-size: 1.02rem;
+}
+
+.pathsSection,
+.gatesSection,
+.protectionSection {
+  padding: 4.5rem 0;
+}
+
+.sectionHeader {
+  display: grid;
+  gap: 0.8rem;
+  max-width: 780px;
+  margin-bottom: 2rem;
+}
+
+.sectionHeader p {
+  margin: 0;
+}
+
+.pathGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.pathCard {
+  min-height: 250px;
+  padding: 1.2rem;
+  border: 1px solid rgba(247, 237, 248, 0.12);
+  border-radius: 1.35rem;
+  background:
+    radial-gradient(circle at top left, rgba(168, 112, 180, 0.15), transparent 16rem),
+    rgba(255, 255, 255, 0.035);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.pathCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(214, 183, 111, 0.48);
+  background:
+    radial-gradient(circle at top left, rgba(214, 183, 111, 0.14), transparent 16rem),
+    rgba(255, 255, 255, 0.055);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+}
+
+.pathCard h3 {
+  margin: 0 0 0.75rem;
+  color: var(--ink-primary, #f7edf8);
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.pathCard p {
+  margin: 0;
+  font-size: 0.94rem;
+}
+
+.gateList {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gateItem {
+  position: relative;
+  display: grid;
+  gap: 0.8rem;
+  min-height: 150px;
+  padding: 1rem;
+  border: 1px solid rgba(247, 237, 248, 0.13);
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.035);
+  overflow: hidden;
+}
+
+.gateItem::after {
+  content: '';
+  position: absolute;
+  inset: auto 1rem 1rem 1rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(214, 183, 111, 0.68),
+    transparent
+  );
+  opacity: 0.65;
+}
+
+.gateNumber {
+  color: rgba(214, 183, 111, 0.72);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.gateItem span:last-child {
+  align-self: end;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.protectionSection {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.protectionText {
+  position: sticky;
+  top: 6rem;
+}
+
+.protectionList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.protectionList li {
+  padding: 1rem;
+  border: 1px solid rgba(247, 237, 248, 0.12);
+  border-radius: 1rem;
+  color: var(--ink-secondary, rgba(247, 237, 248, 0.78));
+  background:
+    linear-gradient(135deg, rgba(168, 112, 180, 0.08), transparent),
+    rgba(255, 255, 255, 0.032);
+}
+
+.finalCta {
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+  margin-top: 4rem;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid rgba(214, 183, 111, 0.28);
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at top right, rgba(214, 183, 111, 0.16), transparent 26rem),
+    radial-gradient(circle at bottom left, rgba(168, 112, 180, 0.16), transparent 26rem),
+    rgba(255, 255, 255, 0.04);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+}
+
+.finalCta h2 {
+  max-width: 900px;
+}
+
+@media (max-width: 980px) {
+  .pathGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gateList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .protectionSection {
+    grid-template-columns: 1fr;
+  }
+
+  .protectionText {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding-top: 5rem;
+  }
+
+  .hero {
+    padding-top: 3rem;
+  }
+
+  .pathGrid,
+  .gateList,
+  .protectionList {
+    grid-template-columns: 1fr;
+  }
+
+  .pathCard,
+  .gateItem {
+    min-height: auto;
+  }
+
+  .heroActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .primaryLink,
+  .secondaryLink {
+    width: 100%;
+  }
+}

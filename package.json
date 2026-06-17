@@ -5,7 +5,12 @@
   "scripts": {
     "dev": "pnpm -C apps/com run dev",
     "build": "pnpm -C apps/com run build",
-    "start": "pnpm -C apps/com run start"
+    "start": "pnpm -C apps/com run start",
+    "typecheck": "pnpm exec tsc --noEmit",
+    "prisma:mystiquill:generate": "pnpm exec prisma generate --schema apps/com/prisma-mystiquill/schema.prisma",
+    "prisma:mystiquill:migrate": "pnpm exec prisma migrate dev --schema apps/com/prisma-mystiquill/schema.prisma",
+    "prisma:mystiquill:studio": "pnpm exec prisma studio --schema apps/com/prisma-mystiquill/schema.prisma"
+
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
