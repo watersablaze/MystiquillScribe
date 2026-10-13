@@ -1,5 +1,7 @@
 // lib/odyssey/access.ts
-export function getOdysseyState(entry, hasAccess: boolean) {
+import type { OdysseyEntry } from "@prisma/client";
+
+export function getOdysseyState(entry: Pick<OdysseyEntry, "accessType" | "publishedAt">, hasAccess: boolean) {
   const isReleased = Boolean(entry.publishedAt);
 
   if (entry.accessType === "OPEN") return "OPEN";
