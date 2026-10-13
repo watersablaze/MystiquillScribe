@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 
 import styles from './apply.module.css'
 import { useRef, useState } from 'react'

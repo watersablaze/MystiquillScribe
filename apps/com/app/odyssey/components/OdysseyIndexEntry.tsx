@@ -23,18 +23,14 @@ export function OdysseyIndexEntry({
   const isPatron = accessType === "PATRON";
   const isHeld = isGuided && !released;
 
-  const Wrapper = isHeld ? "div" : Link;
-  const wrapperProps = isHeld ? {} : { href: `/odyssey/${slug}` };
+  const className = [
+    styles.entry,
+    isHeld ? styles.held : "",
+    isGuided && released ? styles.guided : "",
+  ].join(" ");
 
-  return (
-    <Wrapper
-      {...wrapperProps}
-      className={[
-        styles.entry,
-        isHeld ? styles.held : "",
-        isGuided && released ? styles.guided : "",
-      ].join(" ")}
-    >
+  const content = (
+    <>
       {/* Ember mark */}
       <span className={styles.ember} />
 
@@ -67,6 +63,16 @@ export function OdysseyIndexEntry({
           )}
         </div>
       </div>
-    </Wrapper>
+    </>
+  );
+
+  if (isHeld) {
+    return <div className={className}>{content}</div>;
+  }
+
+  return (
+    <Link href={`/odyssey/${slug}`} className={className}>
+      {content}
+    </Link>
   );
 }
